@@ -32,63 +32,28 @@
                 <a href="#stats">סטטיסטיקות</a>
                 <a href="#about">אודות</a>
             </nav>
-            <div class="profile-area">
-                <button class="profile-chip" data-role="profile-chip" aria-haspopup="true" aria-expanded="false">
-                    <span class="profile-dot" aria-hidden="true"></span>
-                    <span class="profile-chip-label">פרופיל:</span>
-                    <span class="profile-chip-name" data-role="profile-name">...</span>
-                    <span class="profile-chip-arrow" aria-hidden="true">▾</span>
-                </button>
-                <div class="profile-menu" data-role="profile-menu" hidden>
-                    <div class="profile-menu-header">
-                        <span class="profile-menu-title">הפרופיל שלך</span>
-                        <button type="button"
-                                class="profile-menu-close"
-                                data-role="profile-close"
-                                aria-label="סגור"
-                                onclick="event.stopPropagation(); this.closest('.profile-menu').hidden = true;">×</button>
-                    </div>
-                    <p class="profile-menu-note">
-                        ההתקדמות שלך נשמרת רק בדפדפן הזה, תחת הפרופיל הפעיל.
-                        כל פרופיל רואה רק את הנתונים שלו.
-                    </p>
-                    <div class="profile-menu-actions">
-                        <button class="btn btn-ghost btn-sm" data-role="profile-switch">החלף / צור פרופיל</button>
-                        <button class="btn btn-ghost btn-sm" data-role="profile-reset">אפס התקדמות</button>
-                    </div>
-                    <div class="profile-list" data-role="profile-list"></div>
-                </div>
-            </div>
+            <button type="button" class="header-reset-btn" data-role="header-reset" aria-label="איפוס התקדמות">
+                <span aria-hidden="true">🗑</span>
+                <span class="header-reset-label">איפוס</span>
+            </button>
         </div>
     </header>
 
-    <dialog class="app-modal" data-role="profile-modal" aria-labelledby="profile-modal-title">
-        <form method="dialog" class="app-modal-card" data-variant="input">
+    <dialog class="app-modal" data-role="confirm-modal" aria-labelledby="confirm-modal-title">
+        <form method="dialog" class="app-modal-card" data-variant="danger">
             <header class="app-modal-header">
-                <div class="app-modal-icon" data-role="profile-modal-icon" aria-hidden="true">👤</div>
+                <div class="app-modal-icon" aria-hidden="true">⚠️</div>
                 <div class="app-modal-header-text">
-                    <h3 id="profile-modal-title" class="app-modal-title" data-role="profile-modal-title">שם הפרופיל</h3>
+                    <h3 id="confirm-modal-title" class="app-modal-title">לאפס את ההתקדמות?</h3>
                 </div>
-                <button type="button" class="app-modal-close" data-role="profile-modal-close" aria-label="סגור">×</button>
+                <button type="button" class="app-modal-close" data-role="confirm-modal-close" aria-label="סגור">×</button>
             </header>
-            <p class="app-modal-desc" data-role="profile-modal-desc">
-                בחר שם שיזהה אותך בדפדפן הזה. הנתונים נשארים מקומית — לא נשלחים לשום שרת.
+            <p class="app-modal-desc">
+                פעולה זו תמחק את כל ההתקדמות שלך בדפדפן הזה: ציונים, היסטוריית קוויזים, שאלות שטעית בהן, ודגלים. לא ניתן לשחזר.
             </p>
-            <label class="app-modal-input-wrap" data-role="profile-modal-input-wrap">
-                <span class="app-modal-input-label">שם פרופיל</span>
-                <input
-                    type="text"
-                    class="app-modal-input"
-                    data-role="profile-modal-input"
-                    maxlength="24"
-                    placeholder="לדוגמה: כריס, david, דני-לימוד..."
-                    autocomplete="off">
-                <span class="app-modal-error" data-role="profile-modal-error" hidden></span>
-                <span class="app-modal-hint">אותיות עברית/אנגלית/מספרים · עד 24 תווים</span>
-            </label>
             <footer class="app-modal-actions">
-                <button type="button" class="btn btn-ghost" data-role="profile-modal-cancel">ביטול</button>
-                <button type="submit" class="btn btn-primary" data-role="profile-modal-ok">שמור</button>
+                <button type="button" class="btn btn-ghost" data-role="confirm-modal-cancel">ביטול</button>
+                <button type="submit" class="btn btn-primary" data-role="confirm-modal-ok">כן, אפס הכל</button>
             </footer>
         </form>
     </dialog>
