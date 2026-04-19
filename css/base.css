@@ -8,6 +8,14 @@
     box-sizing: border-box;
 }
 
+/* Enforce the HTML `hidden` attribute even when custom CSS sets an explicit
+   display (e.g. display:flex on a menu). Without this, our own flex/grid
+   rules would out-rank the UA default for [hidden] and dropdowns/toasts
+   wouldn't actually disappear when toggled. */
+[hidden] {
+    display: none !important;
+}
+
 html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
