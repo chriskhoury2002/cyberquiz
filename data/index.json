@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "quizzes": [
+    {
+      "id": "quiz-01-intro",
+      "title": "מבוא לאבטחת מידע וסייבר",
+      "presentationNumber": 1,
+      "file": "data/quizzes/quiz-01-intro.json",
+      "theme": "cyberpunk",
+      "difficulty": "beginner",
+      "estimatedMinutes": 10,
+      "questionCount": 8
+    }
+  ],
+  "themes": {
+    "cyberpunk": {
+      "primary": "#ff006e",
+      "secondary": "#8338ec",
+      "accent": "#3a86ff",
+      "bg": "#0a0e27"
+    },
+    "matrix": {
+      "primary": "#00ff41",
+      "secondary": "#008f11",
+      "accent": "#39ff14",
+      "bg": "#0d0208"
+    },
+    "ocean": {
+      "primary": "#00b4d8",
+      "secondary": "#0077b6",
+      "accent": "#90e0ef",
+      "bg": "#03045e"
+    },
+    "sunset": {
+      "primary": "#ff6b35",
+      "secondary": "#f7931e",
+      "accent": "#fdc830",
+      "bg": "#2d1b2e"
+    },
+    "forest": {
+      "primary": "#52b788",
+      "secondary": "#2d6a4f",
+      "accent": "#95d5b2",
+      "bg": "#081c15"
+    },
+    "midnight": {
+      "primary": "#7209b7",
+      "secondary": "#560bad",
+      "accent": "#b5179e",
+      "bg": "#03071e"
+    }
+  }
+}

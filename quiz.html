@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Quiz — קוויז</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Rubik:wght@400;500;700&display=swap">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/modes.css">
+
+    <script type="module" src="js/quiz-page.js"></script>
+</head>
+<body class="theme-default">
+    <div class="bg-layer" aria-hidden="true"></div>
+
+    <header class="quiz-header" data-role="quiz-header">
+        <div class="container quiz-header-inner">
+            <a class="btn btn-ghost btn-sm" href="./">← חזרה</a>
+            <div class="quiz-header-title">
+                <span class="quiz-header-label" data-role="mode-label">תרגול</span>
+                <h1 class="quiz-header-name" data-role="quiz-title">טוען…</h1>
+            </div>
+            <div class="quiz-header-meta">
+                <span class="counter" data-role="counter">0 / 0</span>
+                <span class="timer" data-role="timer" hidden>00:00</span>
+            </div>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" data-role="progress-fill"></div>
+        </div>
+    </header>
+
+    <main class="container quiz-stage" data-role="quiz-stage">
+        <div class="loading-placeholder" data-role="loading">טוען שאלות…</div>
+    </main>
+
+    <section class="results-panel" data-role="results" hidden>
+        <div class="container">
+            <div class="results-card">
+                <div class="results-score" data-role="results-score">0 / 0</div>
+                <div class="results-percent" data-role="results-percent">0%</div>
+                <p class="results-summary" data-role="results-summary"></p>
+
+                <div class="results-breakdown" data-role="results-breakdown"></div>
+
+                <details class="results-wrong" data-role="results-wrong" open>
+                    <summary>סקירת שאלות שגויות</summary>
+                    <div data-role="wrong-list"></div>
+                </details>
+
+                <div class="results-actions">
+                    <button class="btn btn-primary" data-action="retry">נסה שוב</button>
+                    <button class="btn btn-accent" data-action="retry-wrong">רק השגויות</button>
+                    <a class="btn btn-ghost" href="./">לדשבורד</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <template id="question-template">
+        <article class="question-card" data-role="question">
+            <header class="question-card-header">
+                <span class="question-topic" data-role="topic"></span>
+                <div class="question-card-header-actions">
+                    <span class="question-difficulty" data-role="difficulty"></span>
+                    <button class="flag-btn" data-role="flag" aria-label="דגל שאלה" title="דגל שאלה">⚑</button>
+                </div>
+            </header>
+            <h2 class="question-text" data-role="question-text"></h2>
+            <ol class="options" data-role="options"></ol>
+            <section class="explanation" data-role="explanation" hidden>
+                <div class="explanation-verdict" data-role="verdict"></div>
+                <p class="explanation-text" data-role="explanation-text"></p>
+                <p class="explanation-source" data-role="source"></p>
+            </section>
+            <footer class="question-card-footer">
+                <button class="btn btn-ghost" data-action="prev">הקודמת</button>
+                <button class="btn btn-primary" data-action="next">הבאה ←</button>
+            </footer>
+        </article>
+    </template>
+
+    <template id="option-template">
+        <li class="option" data-role="option">
+            <button class="option-btn">
+                <span class="option-letter" data-role="option-letter"></span>
+                <span class="option-text" data-role="option-text"></span>
+                <span class="option-indicator" data-role="option-indicator" aria-hidden="true"></span>
+            </button>
+        </li>
+    </template>
+</body>
+</html>

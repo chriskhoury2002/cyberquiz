@@ -1,0 +1,103 @@
+/* ============================================================
+   Modes — visual tweaks per quiz mode.
+   Mode is set on body via js: body.mode-practice, body.mode-exam,
+   body.mode-flashcards, body.mode-wrong, body.mode-quick10.
+   ============================================================ */
+
+/* ====== Exam mode ======
+   In exam mode we want the user to see which option they picked, but NOT learn
+   whether it was correct until the quiz ends. Override the reveal styling.
+*/
+body.mode-exam .quiz-header {
+    border-bottom-color: color-mix(in srgb, var(--color-error) 30%, transparent);
+}
+body.mode-exam .quiz-header-label {
+    color: var(--color-error);
+}
+body.mode-exam .explanation { display: none; }
+
+body.mode-exam .option.is-correct .option-btn,
+body.mode-exam .option.is-incorrect .option-btn {
+    border-color: var(--color-border);
+    background: var(--color-surface);
+}
+body.mode-exam .option.is-correct .option-letter,
+body.mode-exam .option.is-incorrect .option-letter {
+    background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+    color: var(--color-accent);
+}
+body.mode-exam .option.is-correct .option-indicator::before,
+body.mode-exam .option.is-incorrect .option-indicator::before {
+    content: none;
+}
+body.mode-exam .option.is-selected .option-btn {
+    border-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+/* ====== Practice mode ====== */
+body.mode-practice .quiz-header-label {
+    color: var(--color-accent);
+}
+
+/* ====== Wrong-only mode ====== */
+body.mode-wrong .quiz-header-label {
+    color: var(--color-warning);
+}
+
+/* ====== Quick10 mode ====== */
+body.mode-quick10 .quiz-header-label {
+    color: var(--color-primary);
+}
+
+/* ====== Flashcards mode ======
+   Each "question" becomes a 3D flip card: front = question, back = answer + explanation.
+   Tap/click toggles. Options aren't interactive — goal is review not testing.
+*/
+body.mode-flashcards .question-card {
+    perspective: 1200px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+}
+body.mode-flashcards .flashcard-inner {
+    position: relative;
+    width: 100%;
+    min-height: 340px;
+    transform-style: preserve-3d;
+    transition: transform 0.7s var(--ease-in-out);
+}
+body.mode-flashcards .flashcard-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+body.mode-flashcards .flashcard-face {
+    position: absolute;
+    inset: 0;
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+body.mode-flashcards .flashcard-back {
+    transform: rotateY(180deg);
+}
+body.mode-flashcards .flashcard-hint {
+    position: absolute;
+    bottom: 1rem;
+    inset-inline-end: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+}
+body.mode-flashcards .options,
+body.mode-flashcards .question-card-footer,
+body.mode-flashcards .explanation {
+    /* Not rendered in flashcards mode — engine swaps in flashcard markup */
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Quiz — קוויזים לקורס אבטחת מידע וסייבר</title>
+    <meta name="description" content="אתר קוויזים אינטראקטיבי לקורס אבטחת מידע וסייבר — תרגול, מבחנים, וכרטיסי זיכרון">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Rubik:wght@400;500;700&display=swap">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/modes.css">
+
+    <script type="module" src="js/dashboard.js"></script>
+</head>
+<body class="theme-default">
+    <div class="bg-layer" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="./">
+                <span class="brand-mark">&lt;/&gt;</span>
+                <span class="brand-name">Cyber Quiz</span>
+            </a>
+            <nav class="site-nav" aria-label="ניווט ראשי">
+                <a href="#quizzes">הקוויזים</a>
+                <a href="#stats">סטטיסטיקות</a>
+                <a href="#about">אודות</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1 class="hero-title">
+                ללמוד <span class="gradient-text">אבטחת סייבר</span><br>
+                דרך תרגול אמיתי
+            </h1>
+            <p class="hero-sub">
+                קוויזים מבוססי מצגות עם שאלות תרחיש, מסבירים ומצבי תרגול מגוונים.
+                לכל מצגת קוויז משלה — בצבעים משלה.
+            </p>
+        </section>
+
+        <section id="stats" class="stats-grid" aria-label="סטטיסטיקות אישיות">
+            <article class="stat-card">
+                <div class="stat-value" data-stat="completed">0</div>
+                <div class="stat-label">קוויזים הושלמו</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-value" data-stat="avg-score">—</div>
+                <div class="stat-label">ציון ממוצע</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-value" data-stat="total-attempts">0</div>
+                <div class="stat-label">סה"כ נסיונות</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-value" data-stat="wrong-pool">0</div>
+                <div class="stat-label">שאלות בתיקון</div>
+            </article>
+        </section>
+
+        <section class="toolbar">
+            <div class="toolbar-row">
+                <label class="search-input">
+                    <span class="sr-only">חיפוש קוויז</span>
+                    <input type="search" placeholder="חיפוש קוויז לפי שם או נושא…" data-role="search">
+                </label>
+                <div class="filter-group" role="tablist" aria-label="סינון לפי רמת קושי">
+                    <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">הכל</button>
+                    <button class="chip" data-filter="beginner" role="tab">מתחיל</button>
+                    <button class="chip" data-filter="intermediate" role="tab">מתקדם</button>
+                    <button class="chip" data-filter="advanced" role="tab">מומחה</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="quizzes" class="quiz-grid" aria-label="רשימת קוויזים">
+            <div class="loading-placeholder" data-role="quiz-grid-empty">טוען קוויזים…</div>
+        </section>
+
+        <section id="about" class="about-card">
+            <h2>על האתר</h2>
+            <p>
+                Cyber Quiz הוא אתר תרגול פתוח לקורס אבטחת מידע וסייבר.
+                כל קוויז מבוסס על מצגת אחת מהקורס, ומציע מצבי תרגול שונים:
+                תרגול עם משוב מיידי, מבחן עם טיימר, כרטיסי זיכרון, ומצב "רק שאלות שטעיתי".
+                ההתקדמות שלך נשמרת מקומית בדפדפן — לא נשלחת לשום שרת.
+            </p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <span>נבנה בעברית · Dark Mode by default · <a href="https://github.com/" data-role="repo-link" target="_blank" rel="noopener">קוד מקור</a></span>
+        </div>
+    </footer>
+
+    <template id="quiz-card-template">
+        <article class="quiz-card" data-quiz-id="">
+            <div class="quiz-card-accent"></div>
+            <header class="quiz-card-header">
+                <span class="quiz-number"></span>
+                <span class="quiz-difficulty"></span>
+            </header>
+            <h3 class="quiz-title"></h3>
+            <p class="quiz-meta">
+                <span class="quiz-count"></span>
+                <span class="quiz-time"></span>
+            </p>
+            <div class="quiz-progress" hidden>
+                <div class="quiz-progress-bar"><div class="quiz-progress-fill"></div></div>
+                <span class="quiz-progress-text"></span>
+            </div>
+            <div class="quiz-card-actions">
+                <button class="btn btn-primary" data-action="practice">תרגול</button>
+                <button class="btn btn-ghost" data-action="menu">עוד מצבים ▾</button>
+            </div>
+            <menu class="quiz-mode-menu" hidden>
+                <li><button data-mode="exam">מצב מבחן (טיימר)</button></li>
+                <li><button data-mode="wrong">רק שאלות שטעיתי</button></li>
+                <li><button data-mode="flashcards">כרטיסי זיכרון</button></li>
+                <li><button data-mode="quick10">מהיר (10 שאלות)</button></li>
+            </menu>
+        </article>
+    </template>
+</body>
+</html>

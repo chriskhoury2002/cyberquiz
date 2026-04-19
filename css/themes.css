@@ -1,0 +1,111 @@
+/* ============================================================
+   Themes — CSS variable sets per palette.
+   Default (body.theme-default) is Cyberpunk.
+   Other themes applied by adding class e.g. body.theme-matrix
+   or by theme.js overriding individual --color-* properties.
+   ============================================================ */
+
+:root {
+    /* Default values (Cyberpunk). Overridden per theme class. */
+    --color-bg: #0a0e27;
+    --color-surface: rgba(255, 255, 255, 0.04);
+    --color-surface-strong: rgba(255, 255, 255, 0.08);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+
+    --color-primary: #ff006e;
+    --color-secondary: #8338ec;
+    --color-accent: #3a86ff;
+    --color-glow-a: rgba(255, 0, 110, 0.18);
+    --color-glow-b: rgba(58, 134, 255, 0.15);
+
+    --color-text: #e4e6f1;
+    --color-text-strong: #ffffff;
+    --color-text-dim: #8b8fa7;
+
+    --color-success: #00ff88;
+    --color-error: #ff3366;
+    --color-warning: #ffaa00;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 40px var(--color-glow-a);
+
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 4rem;
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* =============== Theme: Cyberpunk (default) =============== */
+.theme-cyberpunk,
+.theme-default {
+    --color-bg: #0a0e27;
+    --color-primary: #ff006e;
+    --color-secondary: #8338ec;
+    --color-accent: #3a86ff;
+    --color-glow-a: rgba(255, 0, 110, 0.18);
+    --color-glow-b: rgba(58, 134, 255, 0.15);
+}
+
+/* =============== Theme: Matrix =============== */
+.theme-matrix {
+    --color-bg: #0d0208;
+    --color-primary: #00ff41;
+    --color-secondary: #008f11;
+    --color-accent: #39ff14;
+    --color-glow-a: rgba(0, 255, 65, 0.15);
+    --color-glow-b: rgba(0, 143, 17, 0.15);
+    --color-text: #c8facc;
+    --color-text-strong: #eaffea;
+}
+
+/* =============== Theme: Ocean =============== */
+.theme-ocean {
+    --color-bg: #03045e;
+    --color-primary: #00b4d8;
+    --color-secondary: #0077b6;
+    --color-accent: #90e0ef;
+    --color-glow-a: rgba(0, 180, 216, 0.2);
+    --color-glow-b: rgba(144, 224, 239, 0.15);
+}
+
+/* =============== Theme: Sunset =============== */
+.theme-sunset {
+    --color-bg: #2d1b2e;
+    --color-primary: #ff6b35;
+    --color-secondary: #f7931e;
+    --color-accent: #fdc830;
+    --color-glow-a: rgba(255, 107, 53, 0.22);
+    --color-glow-b: rgba(253, 200, 48, 0.15);
+}
+
+/* =============== Theme: Forest =============== */
+.theme-forest {
+    --color-bg: #081c15;
+    --color-primary: #52b788;
+    --color-secondary: #2d6a4f;
+    --color-accent: #95d5b2;
+    --color-glow-a: rgba(82, 183, 136, 0.18);
+    --color-glow-b: rgba(149, 213, 178, 0.12);
+}
+
+/* =============== Theme: Midnight =============== */
+.theme-midnight {
+    --color-bg: #03071e;
+    --color-primary: #7209b7;
+    --color-secondary: #560bad;
+    --color-accent: #b5179e;
+    --color-glow-a: rgba(114, 9, 183, 0.2);
+    --color-glow-b: rgba(181, 23, 158, 0.18);
+}
