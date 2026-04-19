@@ -31,11 +31,85 @@ async function main() {
         return;
     }
 
+    renderProfile();
     renderStats();
     renderFinalExamCard();
     renderQuizzes();
     wireInteractions();
     wireGlobalMenuClose();
+    wireProfileMenu();
+}
+
+/** Update the profile chip label with the active profile name. */
+function renderProfile() {
+    const nameEl = document.querySelector('[data-role="profile-name"]');
+    if (nameEl) nameEl.textContent = Storage.getActiveProfile();
+}
+
+function wireProfileMenu() {
+    const chip = document.querySelector('[data-role="profile-chip"]');
+    const menu = document.querySelector('[data-role="profile-menu"]');
+    const switchBtn = document.querySelector('[data-role="profile-switch"]');
+    const resetBtn = document.querySelector('[data-role="profile-reset"]');
+    if (!chip || !menu) return;
+
+    const setOpen = (open) => {
+        menu.hidden = !open;
+        chip.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) renderProfileList();
+    };
+
+    chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setOpen(menu.hidden);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.profile-area')) setOpen(false);
+    });
+
+    switchBtn?.addEventListener('click', () => {
+        const current = Storage.getActiveProfile();
+        const input = prompt('שם הפרופיל (אותיות עבריות/אנגליות, עד 24 תווים):', current);
+        if (input == null) return;
+        const cleaned = Storage.setActiveProfile(input);
+        refreshEverything(cleaned);
+    });
+
+    resetBtn?.addEventListener('click', () => {
+        const current = Storage.getActiveProfile();
+        const confirmed = confirm(`לאפס את כל ההתקדמות של הפרופיל "${current}"?\nפעולה זו אינה הפיכה.`);
+        if (!confirmed) return;
+        const removed = Storage.clearProfile(current);
+        alert(`נוקו ${removed} רשומות של הפרופיל "${current}".`);
+        refreshEverything();
+    });
+}
+
+function renderProfileList() {
+    const listEl = document.querySelector('[data-role="profile-list"]');
+    if (!listEl) return;
+    const profiles = Storage.listProfiles();
+    const active = Storage.getActiveProfile();
+    listEl.innerHTML = '<div class="profile-list-label">פרופילים קיימים בדפדפן הזה:</div>';
+    profiles.forEach((p) => {
+        const btn = document.createElement('button');
+        btn.textContent = p;
+        if (p === active) btn.classList.add('is-active');
+        btn.addEventListener('click', () => {
+            Storage.setActiveProfile(p);
+            refreshEverything(p);
+        });
+        listEl.appendChild(btn);
+    });
+}
+
+function refreshEverything() {
+    renderProfile();
+    renderStats();
+    renderFinalExamCard();
+    renderQuizzes();
+    renderProfileList();
 }
 
 function renderFinalExamCard() {

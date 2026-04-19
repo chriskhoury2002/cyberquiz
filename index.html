@@ -32,6 +32,25 @@
                 <a href="#stats">סטטיסטיקות</a>
                 <a href="#about">אודות</a>
             </nav>
+            <div class="profile-area">
+                <button class="profile-chip" data-role="profile-chip" aria-haspopup="true" aria-expanded="false">
+                    <span class="profile-dot" aria-hidden="true"></span>
+                    <span class="profile-chip-label">פרופיל:</span>
+                    <span class="profile-chip-name" data-role="profile-name">...</span>
+                    <span class="profile-chip-arrow" aria-hidden="true">▾</span>
+                </button>
+                <div class="profile-menu" data-role="profile-menu" hidden>
+                    <p class="profile-menu-note">
+                        ההתקדמות שלך נשמרת רק בדפדפן הזה, תחת הפרופיל הפעיל.
+                        כל פרופיל רואה רק את הנתונים שלו.
+                    </p>
+                    <div class="profile-menu-actions">
+                        <button class="btn btn-ghost btn-sm" data-role="profile-switch">החלף / צור פרופיל</button>
+                        <button class="btn btn-ghost btn-sm" data-role="profile-reset">אפס התקדמות</button>
+                    </div>
+                    <div class="profile-list" data-role="profile-list"></div>
+                </div>
+            </div>
         </div>
     </header>
 

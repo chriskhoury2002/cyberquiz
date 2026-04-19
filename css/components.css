@@ -122,6 +122,123 @@
     .site-nav { display: none; }
 }
 
+/* =============== Profile chip + menu =============== */
+.profile-area {
+    position: relative;
+}
+.profile-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 0.85rem;
+    transition: background 0.2s, border-color 0.2s;
+}
+.profile-chip:hover {
+    background: var(--color-surface-strong);
+    border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+.profile-chip-label {
+    color: var(--color-text-dim);
+    font-size: 0.78rem;
+}
+.profile-chip-name {
+    font-weight: 600;
+    color: var(--color-text-strong);
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.profile-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px var(--color-accent);
+}
+.profile-chip-arrow {
+    color: var(--color-text-dim);
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+.profile-chip[aria-expanded="true"] .profile-chip-arrow {
+    transform: rotate(180deg);
+}
+
+.profile-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    inset-inline-end: 0;
+    width: min(320px, calc(100vw - 2rem));
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.profile-menu-note {
+    margin: 0;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    border-inline-start: 2px solid var(--color-accent);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+.profile-menu-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.profile-menu-actions .btn { flex: 1; }
+.profile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.6rem;
+}
+.profile-list-label {
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    margin-bottom: 0.2rem;
+}
+.profile-list button {
+    padding: 0.45rem 0.7rem;
+    border-radius: var(--radius-sm);
+    text-align: start;
+    color: var(--color-text);
+    font-size: 0.88rem;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.profile-list button:hover {
+    background: var(--color-surface);
+}
+.profile-list button.is-active {
+    background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+    color: var(--color-text-strong);
+}
+.profile-list button.is-active::before {
+    content: "✓";
+    color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+    .profile-chip-label { display: none; }
+}
+
 /* =============== Hero =============== */
 .hero {
     padding-block: clamp(2.5rem, 7vw, 5rem);
