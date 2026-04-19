@@ -1,0 +1,568 @@
+{
+  "quizId": "quiz-05-network",
+  "title": "אבטחת מידע בשכבת הנתונים והרשת",
+  "color": { "primary": "#c75bee", "secondary": "#01487f", "accent": "#a2ece4" },
+  "totalQuestions": 35,
+  "questions": [
+    {
+      "id": 1,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "מודל TCP/IP ושכבות",
+      "question": "באיזו שכבה במודל TCP/IP פועל פרוטוקול ARP הממיר כתובות?",
+      "options": [
+        "שכבת הרשת השלישית",
+        "שכבת התעבורה הרביעית",
+        "שכבת הנתונים השנייה",
+        "שכבת היישום החמישית"
+      ],
+      "correctIndex": 2,
+      "explanation": "פרוטוקול ARP פועל בשכבת הנתונים (Data-Link, שכבה 2) במודל TCP/IP. מטרתו להמיר כתובת לוגית IP לכתובת פיזית MAC. חולשתו המרכזית היא שהוא Completely Unauthenticated.",
+      "source": "שקף 6"
+    },
+    {
+      "id": 2,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "CIA Triad",
+      "question": "מה הם שלושת קודקודי ה-CIA Triad באבטחת מידע?",
+      "options": [
+        "סודיות, שלמות, זמינות",
+        "הצפנה, אימות, הרשאה",
+        "מהימנות, יציבות, מהירות",
+        "זיהוי, הגנה, תגובה"
+      ],
+      "correctIndex": 0,
+      "explanation": "CIA Triad מורכב מסודיות (Confidentiality), שלמות (Integrity) וזמינות (Availability). שלוש תכונות אלה מהוות מסגרת להערכת השפעת פגיעה באבטחת מידע. כל פגיעה בשכבות 2-3 משפיעה על הקודקודים האלה.",
+      "source": "שקף 3"
+    },
+    {
+      "id": 3,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "ההבדל בין שכבות 2 ל-3",
+      "question": "מהי ההבחנה המרכזית בין שכבת Data-Link לשכבת Network מבחינת היקף התקיפות?",
+      "options": [
+        "שתיהן מטפלות בניתוב חבילות בין רשתות מרוחקות זו מזו",
+        "שכבה 2 מטפלת בניתוב WAN ושכבה 3 מטפלת ברשת מקומית",
+        "Data-Link עוסקת ב-LAN ו-Network עוסקת ב-WAN ואינטרנט",
+        "שתיהן פועלות באופן זהה לחלוטין בתוך הארגון הפנימי"
+      ],
+      "correctIndex": 2,
+      "explanation": "שכבת Data-Link עוסקת במסגרות, כתובות MAC ו-ARP, ועיקר התקיפות בה מתרחשות בתוך LAN. שכבת Network עוסקת בניתוב וכתובות IP, ועיקר התקיפות בה הן בין-רשתיות (WAN/Internet). ההבחנה חשובה להבנת היקף האיום.",
+      "source": "שקף 5"
+    },
+    {
+      "id": 4,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "ARP Poisoning",
+      "question": "עובד בארגון מריץ arp -a ומגלה שכתובת ה-MAC של ה-Gateway זהה לכתובת MAC של מחשב אחר ברשת. מה סביר שהתרחש?",
+      "options": [
+        "הנתב מחליף אוטומטית את כתובת ה-MAC שלו תקופתית",
+        "מתבצעת התקפת ARP Poisoning והתוקף מתחזה לנתב",
+        "מדובר בתקלת חומרה אקראית שלא קשורה לאבטחה",
+        "מערכת ההפעלה עדכנה את הטבלה לפי פרוטוקול חדש"
+      ],
+      "correctIndex": 1,
+      "explanation": "ב-ARP Poisoning התוקף משדר לכל התחנות ברשת שהוא ה-Gateway, וכתוצאה מכך טבלאות ה-ARP של הקורבנות מתעדכנות עם כתובת ה-MAC של התוקף במקום של הנתב האמיתי. זיהוי MAC כפול ל-Gateway הוא סימן מובהק להתקפה כזו.",
+      "source": "שקף 17"
+    },
+    {
+      "id": 5,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "MAC Flooding ו-Fail Open",
+      "question": "ברשת ארגונית פתאום כל המחשבים מסוגלים לראות ב-Wireshark תעבורה שאינה מיועדת להם. מה הגורם הסביר?",
+      "options": [
+        "הותקן Hub חדש במקום ה-Switch הקיים בארגון",
+        "ה-Switch עבר למצב Fail Open בעקבות MAC Flooding",
+        "כל המחשבים הוגדרו ידנית למצב שרת ניטור",
+        "הרשת עברה באופן יזום לפרוטוקול חדש יותר"
+      ],
+      "correctIndex": 1,
+      "explanation": "ב-MAC Flooding טבלת ה-CAM של ה-Switch מתמלאת בכתובות מזויפות ונכנסת למצב Fail Open. במצב זה ה-Switch מתפקד כמו Hub ומשדר את כל התעבורה לכל היציאות, מה שמאפשר Sniffing מלא של הרשת.",
+      "source": "שקף 20"
+    },
+    {
+      "id": 6,
+      "type": "negative",
+      "difficulty": "medium",
+      "topic": "חולשות TCP/IP",
+      "question": "איזה מהבאים אינו חולשה מובנית בפרוטוקולי TCP/IP הבסיסיים?",
+      "options": [
+        "פרוטוקול IP לא כולל מנגנון אימות",
+        "ARP מאפשר לכל התקן להכריז על כתובת",
+        "התעבורה מוצפנת כברירת מחדל בכל שכבה",
+        "נתבים מאמינים להודעות עדכון שמגיעות"
+      ],
+      "correctIndex": 2,
+      "explanation": "פרוטוקולי TCP/IP הבסיסיים לא מצפינים את המידע כברירת מחדל, והוא עובר כ-Cleartext. שאר הסעיפים הם חולשות אמיתיות: IP ללא אימות, ARP ללא אימות, ואמון הנתבים בהודעות עדכון. זו בדיוק הבעיה שהשיעור מדגיש.",
+      "source": "שקף 8"
+    },
+    {
+      "id": 7,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "Cleartext Protocols",
+      "question": "איזה פרוטוקול מהרשימה הבאה אינו נחשב Cleartext Protocol מסוכן?",
+      "options": [
+        "FTP להעברת קבצים רגילה ברשת",
+        "Telnet לשליטה מרחוק על שרתים",
+        "HTTPS המצפין תעבורת אתרים",
+        "SNMP בגרסאות v1 ו-v2"
+      ],
+      "correctIndex": 2,
+      "explanation": "HTTPS מצפין את התעבורה ולכן אינו Cleartext. לעומת זאת FTP, Telnet ו-SNMP v1/v2 מעבירים את המידע הכולל סיסמאות בטקסט גלוי. חשיפת סיסמאות וקריאת פרמטרים קריטיים היא הסכנה המרכזית בפרוטוקולים אלו.",
+      "source": "שקף 10"
+    },
+    {
+      "id": 8,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "ARP Spoofing מול ARP Poisoning",
+      "question": "מה ההבדל המרכזי בין ARP Spoofing ל-ARP Poisoning?",
+      "options": [
+        "Spoofing הוא ממוקד ו-Poisoning הוא הזרקה מסיבית",
+        "Spoofing פוגע ב-Switch ו-Poisoning פוגע בנתבים",
+        "Spoofing חוקי לבדיקה ו-Poisoning נחשב לעבירה",
+        "Spoofing דורש הצפנה ו-Poisoning עובד ללא הצפנה"
+      ],
+      "correctIndex": 0,
+      "explanation": "ARP Spoofing הוא התקפה ממוקדת על מחשב בודד שבה התוקף שולח Reply מזויף לקורבן יחיד. ARP Poisoning הוא הזרקה מסיבית של מידע שגוי לטבלאות ARP של מספר רב של תחנות ברשת בבת אחת.",
+      "source": "שקף 15"
+    },
+    {
+      "id": 9,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "MITM",
+      "question": "תוקף ממקם את עצמו בין המחשב שלך לבין הנתב באמצעות ARP Poisoning. איזו פעולה אינו יכול לבצע כתוצאה ישירה מכך?",
+      "options": [
+        "להאזין לכל התעבורה הלא מוצפנת שעוברת",
+        "לשנות נתונים בזמן אמת לפני העברתם הלאה",
+        "לחשוף תוכן הודעות HTTPS מוצפנות לחלוטין",
+        "לנתק אותך מהרשת על ידי זריקת חבילות"
+      ],
+      "correctIndex": 2,
+      "explanation": "גם ב-MITM מלא התוקף אינו יכול לפענח תוכן HTTPS מוצפן ללא המפתחות; הוא רואה רק את כתובות ה-IP ועם מי אתה מדבר. לעומת זאת האזנה ל-Cleartext, שינוי נתונים ו-DoS (זריקת חבילות) הם תוצאות ישירות של ARP Poisoning.",
+      "source": "שקף 18"
+    },
+    {
+      "id": 10,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "CAM Table ו-Switch",
+      "question": "מהי הסיבה ש-Switch במצב Fail Open מתחיל להתנהג כמו Hub?",
+      "options": [
+        "הוא מאבד את היכולת הפיזית להעביר חבילות כלל",
+        "הוא נכנס למצב Flooding כשאינו יודע לאן לשלוח",
+        "הוא חסום על ידי מערכת ההפעלה של התוקף",
+        "הוא מחליף את כל הפורטים שלו בפורטים וירטואליים"
+      ],
+      "correctIndex": 1,
+      "explanation": "כשטבלת ה-CAM של ה-Switch מלאה בכתובות מזויפות, הוא לא מוצא את כתובת היעד האמיתית. מתוך שיקול תכנוני של אי-איבוד מידע, הוא עובר למצב Flooding ומשדר לכל היציאות חוץ מזו שממנה הגיע המידע, בדיוק כמו Hub.",
+      "source": "שקף 21"
+    },
+    {
+      "id": 11,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "Promiscuous Mode",
+      "question": "מה מאפיין את מצב Promiscuous Mode של כרטיס רשת?",
+      "options": [
+        "הכרטיס קולט רק מידע שמיועד במפורש אליו",
+        "הכרטיס מצפין אוטומטית כל חבילה יוצאת ממנו",
+        "הכרטיס קולט כל פיסת מידע שעוברת לידו",
+        "הכרטיס חוסם כל תעבורה נכנסת חשודה מראש"
+      ],
+      "correctIndex": 2,
+      "explanation": "ב-Promiscuous Mode כרטיס הרשת קולט ושומר כל פיסת מידע שעוברת לידו, גם אם המידע מיועד למחשב אחר לחלוטין. מצב זה חיוני לביצוע Sniffing באמצעות כלים כמו Wireshark על תעבורת הרשת המקומית.",
+      "source": "שקף 23"
+    },
+    {
+      "id": 12,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Sniffing על Wi-Fi פתוח",
+      "question": "משתמש מתחבר לרשת Wi-Fi ציבורית ומזין סיסמה לאתר HTTP. מה בדיוק התוקף יראה?",
+      "options": [
+        "רק את כתובות ה-IP ושם האתר שבו המשתמש ביקר",
+        "את שם המשתמש והסיסמה בטקסט ברור וקריא",
+        "רק מידע מוצפן שלא ניתן לפענוח ללא מפתח",
+        "רק את הזמן שבו המשתמש ביצע את ההתחברות"
+      ],
+      "correctIndex": 1,
+      "explanation": "כאשר התעבורה אינה מוצפנת (HTTP), התוקף ב-Promiscuous Mode רואה את שמות המשתמש והסיסמאות בטקסט ברור באמצעות Wireshark. ברשתות אלחוטיות המידע נמצא באוויר וקל לקלוט אותו. ב-HTTPS לעומת זאת היה רואה רק ג'יבריש מוצפן.",
+      "source": "שקף 24"
+    },
+    {
+      "id": 13,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "Port Stealing",
+      "question": "תוקף מחובר לפורט פיזי מס' 5 ב-Switch ושולח Frames עם כתובת MAC של הקורבן מפורט 12. מה תהיה התוצאה?",
+      "options": [
+        "ה-Switch יתעלם מהמידע כי הוא מזהה את הזיוף",
+        "ה-Switch יעדכן את הטבלה ויעביר תעבורה לתוקף",
+        "ה-Switch יחסום באופן אוטומטי את פורט 5 מידית",
+        "ה-Switch ישלח התרעה למנהל הרשת על חריגה"
+      ],
+      "correctIndex": 1,
+      "explanation": "ב-Port Stealing ה-Switch לומד מכל מסגרת שמגיעה ומעדכן את טבלת ה-CAM. כשהוא רואה את ה-MAC של הקורבן מפורט 5, הוא מניח שהקורבן עבר מיקום ומתחיל להעביר את התעבורה המיועדת לקורבן אל התוקף בפורט 5.",
+      "source": "שקף 25"
+    },
+    {
+      "id": 14,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "אנלוגיית מעטפה ומכתב",
+      "question": "בהקשר לחוסר חתימה בשכבות 2-3, לפי אנלוגיית 'מעטפה מול מכתב', מה בדיוק התוקף מזייף?",
+      "options": [
+        "את תוכן המכתב עצמו בגוף הטקסט האפליקטיבי",
+        "את הזהות על המעטפה כלומר הכתובת הפיזית והלוגית",
+        "את הקוד הקריפטוגרפי של כל הודעה בשכבת היישום",
+        "את החתימה הדיגיטלית שמופיעה בסוף הגוף של ההודעה"
+      ],
+      "correctIndex": 1,
+      "explanation": "האנלוגיה מדגישה שחוסר החתימה בשכבות 2-3 משפיע על המעטפה, כלומר על כתובות ה-MAC וה-IP, ולא על תוכן המכתב (שכבת היישום). התוקף יכול לזייף את זהות השולח (ARP/IP Spoofing) מבלי לשנות את תוכן ההודעה האפליקטיבית.",
+      "source": "שקף 11"
+    },
+    {
+      "id": 15,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "IP Spoofing",
+      "question": "מהי המטרה הטכנית המרכזית של IP Spoofing?",
+      "options": [
+        "הצפנת תוכן החבילות לשמירה על סודיות המידע",
+        "שינוי כתובת המקור בכותרת חבילת ה-IP",
+        "דחיסת כותרות IP לחיסכון ברוחב פס יקר",
+        "פיצול חבילות לקטעים קטנים לעקיפת ניטור"
+      ],
+      "correctIndex": 1,
+      "explanation": "IP Spoofing הוא שינוי כתובת המקור (Source IP) בכותרת חבילת ה-IP. התוקף משתמש בכך להתחזות לזהות אמינה, לעקיפת חוקי ACL ב-Firewall המבוססים על IP ולהסתרת זהותו במתקפות DoS.",
+      "source": "שקף 30"
+    },
+    {
+      "id": 16,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "IP Spoofing ו-Firewall",
+      "question": "Firewall עם ACL מבוסס IP מקבל חבילה שכתובת המקור שלה היא שרת פנימי אמין, אך היא מגיעה מקישור חיצוני. מה סביר שקורה?",
+      "options": [
+        "השרת הפנימי הועבר לאירוח חיצוני באופן יזום",
+        "תוקף מבצע IP Spoofing כדי לעקוף את חוקי ה-ACL",
+        "ה-Firewall סובל מתקלת חומרה שגורמת לבלבול",
+        "מדובר בעדכון תוכנה לגיטימי של ספק השירותים"
+      ],
+      "correctIndex": 1,
+      "explanation": "תוקף שמזייף כתובת IP של שרת פנימי אמין מנסה לעקוף חוקי ACL של ה-Firewall, שמסתמכים על 'הכתובת שכתובה על המעטפה'. ה-Firewall עשוי להכניס את החבילה מתוך אמון שגוי. זהו ניצול קלאסי של חוסר אימות בשכבה 3.",
+      "source": "שקף 12"
+    },
+    {
+      "id": 17,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "SYN Flood",
+      "question": "שרת ארגוני מפסיק לקבל חיבורים חדשים למרות שניצול המעבד שלו נמוך מאוד. מה ההסבר הסביר?",
+      "options": [
+        "תקלת חומרה במעבד גרמה לחסימה של שירותים",
+        "SYN Queue התמלאה ב-Half-open connections",
+        "מערכת ההפעלה בתהליך עדכון אוטומטי שוטף",
+        "חיבור האינטרנט של השרת נותק על ידי הספק"
+      ],
+      "correctIndex": 1,
+      "explanation": "ב-SYN Flood התוקף מציף את השרת בבקשות SYN ללא שליחת ה-ACK הסופי. ה-SYN Queue מתמלאת ב-Half-open connections עד שהשרת לא מסוגל לקבל חיבורים חדשים, גם אם המעבד שלו פנוי. זו התקפת DoS קלאסית על TCP.",
+      "source": "שקף 39"
+    },
+    {
+      "id": 18,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "TCP Handshake",
+      "question": "מה הסדר הנכון של שלבי TCP Handshake?",
+      "options": [
+        "ACK אז SYN ואחר כך SYN/ACK כסיום",
+        "SYN ואז SYN/ACK ואחר כך ACK כסיום",
+        "SYN/ACK ואז ACK ואחר כך SYN כסיום",
+        "ACK ואז ACK/SYN ואחר כך SYN כסיום"
+      ],
+      "correctIndex": 1,
+      "explanation": "TCP Handshake הוא לחיצת יד משולשת: לקוח שולח SYN, שרת משיב SYN/ACK, לקוח שולח ACK. השרת חייב לשמור מצב ב-SYN Queue לאחר שלב 2, וזו נקודת התורפה שמנוצלת ב-SYN Flood.",
+      "source": "שקף 38"
+    },
+    {
+      "id": 19,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "Session Hijacking",
+      "question": "מה ההבדל בין Blind ל-Non-Blind Session Hijacking?",
+      "options": [
+        "Blind מתבצע בלילה ו-Non-Blind מתבצע ביום בהיר",
+        "Blind רואה תגובות ו-Non-Blind לא רואה תגובות",
+        "Blind לא רואה תגובות ו-Non-Blind רואה תגובות",
+        "Blind עובד רק על UDP ו-Non-Blind עובד רק על TCP"
+      ],
+      "correctIndex": 2,
+      "explanation": "ב-Blind Session Hijacking התוקף שולח פקודות ללא ראיית התגובות, ולכן הוא חייב לחזות את מספרי הרצף. ב-Non-Blind התוקף רואה את התשובות, מה שדורש יכולת Sniffing על התעבורה בין הקורבן לשרת.",
+      "source": "שקף 35"
+    },
+    {
+      "id": 20,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "שלבי Session Hijacking",
+      "question": "מהו הסדר הנכון של שלבי התקפת Session Hijacking?",
+      "options": [
+        "Takeover, Injection, Desync ולבסוף Sniffing",
+        "Injection, Sniffing, Takeover ולבסוף Desync",
+        "Sniffing, Desync, Injection ולבסוף Takeover",
+        "Desync, Takeover, Sniffing ולבסוף Injection"
+      ],
+      "correctIndex": 2,
+      "explanation": "שלבי Session Hijacking הם: Sniffing (איתור שיחה וזיהוי מספרי רצף), Desync (ניתוק הקורבן או יצירת חוסר סנכרון), Injection (הזרקת פקודות עם מספר רצף נכון) ו-Takeover (שליטה מלאה). הסדר חיוני להצלחת ההתקפה.",
+      "source": "שקף 37"
+    },
+    {
+      "id": 21,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "TCP Reset Attack",
+      "question": "חיבור VPN ארגוני מתנתק שוב ושוב כל כמה שניות ללא סיבה נראית לעין. מה ייתכן שמתבצע?",
+      "options": [
+        "התקפת TCP Reset עם שליחת פאקטות RST מזויפות",
+        "התקפת SYN Flood שממלאת את תור החיבורים",
+        "התקפת UDP Amplification שמכבידה על הקו",
+        "התקפת Port Stealing שמעבירה תעבורה לתוקף"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-TCP Reset Attack התוקף שולח פאקטות RST מזויפות שגורמות לסגירה מיידית של החיבור. זהו כלי יעיל ליצירת DoS נקודתי ופגיעה בזמינות (Availability), גם אם המעבד של השרת פנוי לחלוטין.",
+      "source": "שקף 42"
+    },
+    {
+      "id": 22,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "TCP מול UDP",
+      "question": "מדוע UDP מועדף על ידי תוקפים בהתקפות Amplification?",
+      "options": [
+        "UDP מצפין כל חבילה ולכן קשה לזהות מקור",
+        "UDP חסר לחיצת יד ומאפשר זיוף כתובת מקור",
+        "UDP איטי מ-TCP ולכן יוצר עומס גדול יותר",
+        "UDP דורש אימות ראשוני של כל החבילות שנשלחות"
+      ],
+      "correctIndex": 1,
+      "explanation": "UDP הוא Connectionless ו-Fire and Forget, ללא לחיצת יד. השרת לא בודק מי באמת שלח את הבקשה, ולכן ניתן לזייף כתובת מקור בקלות. ב-TCP לחיצת היד הייתה נכשלת לפני שהתשובה הייתה נשלחת לקורבן.",
+      "source": "שקף 45"
+    },
+    {
+      "id": 23,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "UDP Amplification",
+      "question": "שרת NTP בארגון מייצר תעבורה יוצאת עצומה לכתובת חיצונית אחת ספציפית. מהו פקטור ההגברה הטיפוסי שהתוקף מנצל?",
+      "options": [
+        "פקטור של פי 2 בין הבקשה לתשובה",
+        "פקטור של פי 10 בממוצע במערכות רגילות",
+        "פקטור של פי 500 בין בקשה קטנה לתשובה",
+        "פקטור של פי 5000 בתנאים אידיאליים ביותר"
+      ],
+      "correctIndex": 2,
+      "explanation": "בהתקפת Amplification על NTP, בקשה של 60 בתים יכולה להחזיר תשובה של 30,000 בתים. זהו פקטור הגברה של פי 500. התוקף שולח עם כתובת מקור מזויפת של הקורבן, וזה מקבל את כל התעבורה המוגברת.",
+      "source": "שקף 46"
+    },
+    {
+      "id": 24,
+      "type": "negative",
+      "difficulty": "medium",
+      "topic": "מאפייני UDP",
+      "question": "איזה מהמאפיינים הבאים אינו חולשה של UDP?",
+      "options": [
+        "חוסר לחיצת יד ראשונית בין צדדים",
+        "חוסר מעקב אחרי מצב הסשן השוטף",
+        "מנגנון בקרת זרימה מובנה יעיל ביותר",
+        "קלות זיוף של כתובת המקור בחבילות"
+      ],
+      "correctIndex": 2,
+      "explanation": "UDP דווקא חסר מנגנון בקרת זרימה (No Flow Control), מה שמאפשר הצפת רשת בקלות. שאר המאפיינים הם חולשות אמיתיות: Connectionless, חוסר אימות וחוסר מעקב סשן. לכן התשובה הנכונה היא שבקרת זרימה 'יעילה' היא תיאור שגוי.",
+      "source": "שקף 47"
+    },
+    {
+      "id": 25,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "DHCP Spoofing",
+      "question": "לקוח ברשת ארגונית מקבל לאחר בקשת DHCP כתובת Default Gateway שאינה כתובת הנתב הארגוני המוכר. מה קרה?",
+      "options": [
+        "התבצעה התקפת DHCP Spoofing עם שרת מתחזה",
+        "הנתב הראשי עבר החלפה יזומה על ידי הארגון",
+        "הלקוח הגדיר ידנית Gateway חלופי במערכת",
+        "מערכת ההפעלה בחרה אקראית Gateway חדש ללקוח"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-DHCP Spoofing התוקף מפעיל שרת DHCP מתחזה ועונה ראשון לבקשות הלקוח, מגדיר את עצמו כ-Default Gateway. התוצאה: תעבורת המידע של הלקוח עוברת דרך ה-Gateway של התוקף, ומאפשרת יירוט, שינוי והפניית תעבורה.",
+      "source": "שקף 48"
+    },
+    {
+      "id": 26,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "Smurf Attack",
+      "question": "במה משתמש Smurf Attack כדי להגביר את עוצמת ההתקפה?",
+      "options": [
+        "בהצפנה חזקה של כל חבילות ה-ICMP היוצאות",
+        "בכתובת Broadcast ברשת להכפלת התשובות",
+        "בפיצול חבילות לקטעים קטנים יותר ויותר",
+        "בחיזוי מספרי רצף TCP של השרת הקורבן"
+      ],
+      "correctIndex": 1,
+      "explanation": "Smurf Attack משתמש בכתובת Broadcast כדי להגביר את ההתקפה (Amplification). התוקף שולח בקשות ICMP עם כתובת מקור מזויפת של הקורבן לכתובת Broadcast, וכל המחשבים ברשת משיבים לקורבן, מה שיוצר הצפה משמעותית.",
+      "source": "שקף 32"
+    },
+    {
+      "id": 27,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "ICMP Redirect",
+      "question": "לקוח ברשת מקבל הודעת ICMP ומשנה את ה-Gateway שלו לכתובת לא מוכרת. מה התרחש?",
+      "options": [
+        "התבצעה התקפת ICMP Redirect להטעיית הקורבן",
+        "הנתב הראשי הודיע על שדרוג פרוטוקול כללי",
+        "מדובר בתהליך הסנכרון הרגיל של הרשת הארגונית",
+        "מערכת ההפעלה עדכנה לבד את הגדרות הרשת"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-ICMP Redirect התוקף מנצל פרוטוקול דיאגנוסטי כדי להטעות את הקורבן לשנות את ה-Gateway שלו לכתובת של התוקף. זהו ניצול לרעה של פרוטוקול בקרה שנועד למטרות לגיטימיות של תיאום נתיבים ברשת.",
+      "source": "שקף 32"
+    },
+    {
+      "id": 28,
+      "type": "negative",
+      "difficulty": "hard",
+      "topic": "Fragmentation Attacks",
+      "question": "איזו התקפה אינה שייכת למשפחת התקפות הפרגמנטציה?",
+      "options": [
+        "Overlapping Fragments ליצירת חפיפה בלתי אפשרית",
+        "Teardrop לשיבוש נתוני Offset הגורם לקריסה",
+        "Bonk המכוון למערכות הפעלה ספציפיות בלבד",
+        "Smurf המשתמש ב-Broadcast להגברת התקפה"
+      ],
+      "correctIndex": 3,
+      "explanation": "Smurf הוא התקפת ICMP Amplification ולא התקפת פרגמנטציה. Overlapping Fragments, Teardrop ו-Bonk כולן משתמשות בפיצול חבילות IP לקטעים כדי להקשות על מערכות IDS/Firewall לנתח תוכן או לגרום לקריסת מערכת ההפעלה.",
+      "source": "שקף 33"
+    },
+    {
+      "id": 29,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "ARP Poisoning מול MAC Flooding",
+      "question": "בהשוואה בין ARP Poisoning ל-MAC Flooding, מה נכון לגבי היקף הפגיעה?",
+      "options": [
+        "Poisoning תמיד פוגע בכל הרשת ו-Flooding פוגע במחשב בודד",
+        "Poisoning ניתן למיקוד ו-Flooding משפיע על כל ה-VLAN",
+        "Poisoning פוגע ברובד פיזי ו-Flooding פוגע ברובד אפליקטיבי",
+        "Poisoning עובד רק על נתב ו-Flooding עובד רק על שרת"
+      ],
+      "correctIndex": 1,
+      "explanation": "ARP Poisoning ממוקד ועובד ברמה הלוגית (L2/L3), וניתן למקד אותו לקורבן ספציפי. MAC Flooding ברוטאלי ועובד על מגבלה פיזית של המתג (L2), ובדרך כלל משפיע על כל ה-VLAN או המתג כולו בבת אחת.",
+      "source": "שקף 22"
+    },
+    {
+      "id": 30,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Sequence Prediction",
+      "question": "תוקף מנסה לבצע Blind TCP Spoofing נגד שרת מודרני. מה יהיה החסם המרכזי בדרכו?",
+      "options": [
+        "חוסר יכולת לשלוח חבילות IP בזיוף מקור",
+        "מספרי רצף TCP אקראיים באמת ולא ניתנים לחיזוי",
+        "חסימת גישה לאינטרנט מהמחשב של התוקף",
+        "היעדר כלים תוכנתיים מתאימים לביצוע התקפה"
+      ],
+      "correctIndex": 1,
+      "explanation": "ב-Blind TCP Spoofing התוקף לא רואה את תשובות ה-SYN/ACK, ולכן הוא חייב לחזות את מספר הרצף. במערכות מודרניות מספרי הרצף אקראיים באמת (לא Predictable), מה שמכשיל את ההתקפה. בעבר במערכות ישנות זה היה אפשרי.",
+      "source": "שקף 41"
+    },
+    {
+      "id": 31,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "DNS Spoofing ב-LAN",
+      "question": "עובד בארגון מקליד את כתובת אתר הבנק ונכנס לאתר מתחזה למרות שהכתובת נכונה. איזו התקפה סביר שמתבצעת?",
+      "options": [
+        "DNS Spoofing בתוך ה-LAN שמחזיר מענה שגוי",
+        "SYN Flood שמכביד על השרת הלגיטימי",
+        "UDP Amplification שמעמיס תעבורה על הדפדפן",
+        "Port Stealing שמעביר תעבורה למחשב תוקף"
+      ],
+      "correctIndex": 0,
+      "explanation": "DNS Spoofing בתוך ה-LAN משנה את מענה ה-DNS כדי להפנות משתמשים לאתרים מתחזים. העובד מקליד כתובת לגיטימית אך מקבל כתובת IP של שרת התוקף. זה מאפשר גניבת Credentials באמצעות אתר מזויף שנראה זהה למקורי.",
+      "source": "שקף 27"
+    },
+    {
+      "id": 32,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "UDP Flood מול Amplification",
+      "question": "מה ההבדל הלוגי המרכזי בין UDP Flood ל-Amplification Attack?",
+      "options": [
+        "Flood משתמש במינוף שרתי צד שלישי ו-Amplification בכוח ברוטאלי",
+        "Flood הוא כוח ברוטאלי של התוקף ו-Amplification מגייס שרתי צד שלישי",
+        "שתיהן משתמשות באותה שיטה בדיוק ללא הבדל מעשי",
+        "Flood מוגבל רק ל-DNS ו-Amplification מוגבל רק ל-NTP"
+      ],
+      "correctIndex": 1,
+      "explanation": "UDP Flood הוא 'מכונת ירייה' המסתמכת על כוח ברוטאלי של התוקף לשלוח מיליון חבילות בשנייה. Amplification הוא 'מינוף' שבו התוקף מגייס שרתי DNS/NTP/SSDP עם פקטור אסימטרי גבוה בין בקשה לתשובה, לדוגמה פי 500.",
+      "source": "שקף 46"
+    },
+    {
+      "id": 33,
+      "type": "negative",
+      "difficulty": "easy",
+      "topic": "התקפות שכבת הרשת",
+      "question": "איזו מהתקפות הבאות אינה התקפה טיפוסית בשכבת הרשת (Network)?",
+      "options": [
+        "IP Spoofing לזיוף כתובת המקור של חבילה",
+        "Routing Attacks להזרקת נתיבי שקר מזיקים",
+        "Session Hijacking להשתלטות על שיחת TCP",
+        "MAC Flooding להצפת טבלת CAM של Switch"
+      ],
+      "correctIndex": 3,
+      "explanation": "MAC Flooding היא התקפה בשכבת הנתונים (Data-Link, שכבה 2) שמכוונת ל-Switch. IP Spoofing, Routing Attacks ו-Session Hijacking הן כולן התקפות בשכבת הרשת (שכבה 3). חשוב להבדיל בין השכבות לצורך הגנה נכונה.",
+      "source": "שקף 29"
+    },
+    {
+      "id": 34,
+      "type": "negative",
+      "difficulty": "medium",
+      "topic": "סוגי Session Hijacking",
+      "question": "איזו מהתכונות הבאות אינה מאפיינת סוג של Session Hijacking?",
+      "options": [
+        "Passive של האזנה וניטור תעבורת הרשת",
+        "Active של השתקת הקורבן והשתלטות",
+        "Blind של שליחת פקודות ללא ראיית תגובות",
+        "Mirror של שכפול הקורבן לרשת אחרת"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mirror אינו סוג של Session Hijacking. ארבעת הסוגים הלגיטימיים הם Passive (האזנה), Active (השתקה והשתלטות), Blind (ללא ראיית תגובות) ו-Non-Blind (ראיית תגובות באמצעות Sniffing). המושג Mirror שייך לתחום אחר ברשתות.",
+      "source": "שקף 35"
+    },
+    {
+      "id": 35,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "סיכום ו-Defense-in-Depth",
+      "question": "מהי המסקנה המרכזית של Pfleeger לגבי אבטחה בשכבות התשתית?",
+      "options": [
+        "יש להסתמך על אבטחת הפרוטוקול הבסיסי לבד",
+        "נדרשת הגנה רב-שכבתית ולא רק אבטחת פרוטוקול",
+        "פרוטוקולי TCP/IP מספיקים בלי צורך בהגנה נוספת",
+        "עדיף לוותר על הצפנה ולהתמקד רק באימות"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pfleeger מדגיש שפרוטוקולי הליבה (IP, ARP, UDP) תוכננו ללא אימות והצפנה, ולכן לא ניתן לסמוך על אבטחה ברמת הפרוטוקול. נדרש יישום Defense-in-Depth - הגנה רב-שכבתית המשלבת מספר מנגנוני הגנה כדי להתמודד עם חולשות מובנות אלה.",
+      "source": "שקף 49"
+    }
+  ]
+}

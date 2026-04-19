@@ -1,0 +1,648 @@
+{
+  "quizId": "quiz-06-perimeter",
+  "title": "הגנה בשכבות - הגנה היקפית",
+  "color": { "primary": "#c75bee", "secondary": "#01487f", "accent": "#a2ece4" },
+  "totalQuestions": 40,
+  "questions": [
+    {
+      "id": 1,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "ארבע מטרות הגנה בשכבות",
+      "question": "מהי אחת מארבע המטרות המרכזיות של גישת הגנה בשכבות?",
+      "options": [
+        "מניעת נקודת כשל יחידה במערך האבטחה",
+        "החלפה מלאה של אנשים בכלים אוטומטיים",
+        "צמצום עלויות רישוי של מוצרי אבטחה",
+        "הגבלת מספר המשתמשים בכל מערכת"
+      ],
+      "correctIndex": 0,
+      "explanation": "אחת מארבע המטרות של הגנה בשכבות היא מניעת Single Point of Failure. ההנחה היא שכל שכבה עלולה להיכשל, ולכן שילוב שכבות מבטיח שכשל באחת לא יפיל את המערכת. שלוש המטרות הנוספות הן הקטנת שטח תקיפה, חיזוק CIA ושילוב טכנולוגיה+תהליך+אדם.",
+      "source": "שקף 5"
+    },
+    {
+      "id": 2,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "Target 2013",
+      "question": "מה היה הכשל המרכזי באירוע Target 2013 למרות קיום הגנות טכנולוגיות מתקדמות?",
+      "options": [
+        "לא היה כלל פיירוול היקפי מותקן ברשת",
+        "התראות FireEye זוהו אך לא טופלו בזמן",
+        "המערכת עבדה ללא חיבור כלשהו לאינטרנט",
+        "כרטיסי האשראי נשמרו בפורמט טקסט רגיל"
+      ],
+      "correctIndex": 1,
+      "explanation": "באירוע Target 2013 נגנבו 40 מיליון כרטיסי אשראי למרות קיום Firewall, IDS, IPS ו-FireEye. הכשל המרכזי היה שמערכת FireEye זיהתה את הפעילות החשודה אך ההתראות לא טופלו. הלקח: טכנולוגיה ללא תהליכים ואנשים שיגיבו אינה מספקת.",
+      "source": "שקף 8"
+    },
+    {
+      "id": 3,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Firewall types - WAF",
+      "question": "אפליקציית Web ארגונית סובלת מניסיונות SQL Injection ו-XSS. איזה פיתרון היקפי ספציפי נדרש?",
+      "options": [
+        "Packet Filtering Firewall שמסנן כתובות IP",
+        "Stateful Firewall שמנהל טבלת מצב TCP",
+        "Web Application Firewall ברמת אפליקציה",
+        "Network ACL שמוגדר ברמת Subnet"
+      ],
+      "correctIndex": 2,
+      "explanation": "WAF פועל בשכבת אפליקציה (L7) ורואה את תוכן בקשות HTTP/S המלא, כולל פרמטרים וקוד. הוא מתמחה בחסימת התקפות OWASP Top 10 כגון SQLi ו-XSS. פיירוולים ברמת L3/L4 לא רואים את תוכן ההודעה ולכן לא יכולים לזהות הזרקות אפליקטיביות.",
+      "source": "שקף 22"
+    },
+    {
+      "id": 4,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "Stateful Firewall vs SYN Flood",
+      "question": "פיירוול Stateful בארגון קורס תחת עומס של חבילות SYN ללא השלמת לחיצת יד. מה הסיבה הטכנית?",
+      "options": [
+        "טבלת המצב ב-RAM מתמלאת בחיבורים פתוחים",
+        "הפיירוול לא יודע לסנן לפי כתובות IP כלל",
+        "חוקי ה-ACL נמחקים אוטומטית תחת עומס רב",
+        "הצפנת TLS מונעת זיהוי של חבילות הנכנסות"
+      ],
+      "correctIndex": 0,
+      "explanation": "פיירוול Stateful שומר כל חיבור פעיל בטבלת מצב ב-RAM כולל מספרי SEQ של TCP. בהתקפת SYN Flood התוקף שולח המון SYN ללא ACK, וטבלת המצב מתמלאת בחיבורים חצי-פתוחים עד שהזיכרון נגמר והפיירוול קורס. זו חולשה אינהרנטית של המנגנון.",
+      "source": "שקף 21"
+    },
+    {
+      "id": 5,
+      "type": "negative",
+      "difficulty": "medium",
+      "topic": "DMZ",
+      "question": "איזה שירות אינו מתאים להצבה באזור DMZ של ארגון?",
+      "options": [
+        "שרת Web ציבורי חשוף לאינטרנט",
+        "שרת Mail לקבלת דוא\"ל חיצוני",
+        "שרת DNS המשרת משתמשים חיצוניים",
+        "מסד נתונים עם סיסמאות לקוחות פנימיים"
+      ],
+      "correctIndex": 3,
+      "explanation": "DMZ הוא אזור חיץ מבודד לשירותים חשופים לאינטרנט כמו Web, Mail ו-DNS. מסד נתונים רגיש עם נתוני לקוחות אינו צריך להיות ב-DMZ אלא באזור פנימי מוגן (DB Zone). העיקרון הוא שפריצה ל-DMZ לא תחשוף את הנכסים הקריטיים של הארגון.",
+      "source": "שקף 24"
+    },
+    {
+      "id": 6,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "IDS vs IPS",
+      "question": "מהו ההבדל המרכזי בין מערכת IDS למערכת IPS?",
+      "options": [
+        "IDS מתריע בלבד ו-IPS חוסם אקטיבית",
+        "IDS זול יותר ו-IPS משתמש בחתימות",
+        "IDS פועל בענן ו-IPS פועל מקומית",
+        "IDS מזהה וירוסים ו-IPS מזהה רשת"
+      ],
+      "correctIndex": 0,
+      "explanation": "IDS מזהה פעילות חשודה ומתריע בלבד, ללא התערבות בתעבורה. IPS מזהה וחוסם בזמן אמת את התעבורה הזדונית. ההבדל הוא ברמת הפעולה: התראה פסיבית מול חסימה אקטיבית. שני הפתרונות קיימים ברמת Host וברמת Network.",
+      "source": "שקף 27"
+    },
+    {
+      "id": 7,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Forward vs Reverse Proxy",
+      "question": "ארגון רוצה להסתיר את כתובות ה-IP הפנימיות של עובדיו בעת גלישה לאינטרנט. מה יתאים לדרישה?",
+      "options": [
+        "Reverse Proxy לפני שרתי Web הפנימיים",
+        "Forward Proxy ליציאה מבוקרת החוצה",
+        "Network ACL ברמת Subnet יחיד",
+        "VPN בין הלקוח לשרת הארגוני"
+      ],
+      "correctIndex": 1,
+      "explanation": "Forward Proxy משמש כמתווך ליציאת משתמשים פנימיים לאינטרנט. הוא מסתיר את ה-IP הפנימי של המשתמשים, מבצע Caching וסינון תוכן. Reverse Proxy, לעומת זאת, מגן על שרתי Web פנימיים מפני בקשות חיצוניות ומבצע Load Balancing ו-SSL Termination.",
+      "source": "שקף 30"
+    },
+    {
+      "id": 8,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "VPN",
+      "question": "מהי המטרה המרכזית של VPN?",
+      "options": [
+        "חסימת התקפות DDoS ברמת שכבת הרשת",
+        "הגנה על שרתי Web מפני OWASP Top 10",
+        "זיהוי אנומליות התנהגותיות בתעבורה",
+        "יצירת מנהרה מוצפנת מעל רשת ציבורית"
+      ],
+      "correctIndex": 3,
+      "explanation": "VPN יוצר מנהרה מוצפנת מעל רשת ציבורית כמו האינטרנט. הוא מספק שלושה שירותים: סודיות (הצפנה), שלמות (מניעת שינוי) ואימות זהות של הצדדים. זו שכבת הגנה היקפית חשובה לעובדים מרחוק ולחיבור סניפים.",
+      "source": "שקף 32"
+    },
+    {
+      "id": 9,
+      "type": "comprehension",
+      "difficulty": "easy",
+      "topic": "NACL",
+      "question": "מה המאפיין הטכני של NACL לעומת Firewall רגיל?",
+      "options": [
+        "NACL הוא Stateless ופועל ברמת Subnet",
+        "NACL שומר מצב כל חיבור בטבלה פנימית",
+        "NACL פועל ברמת אפליקציה עם הבנת HTTP",
+        "NACL מיועד רק להצפנת תעבורה בין סניפים"
+      ],
+      "correctIndex": 0,
+      "explanation": "NACL (Network ACL) הוא מנגנון בקרת גישה ברמת Subnet או VLAN, ולעומת Stateful Firewall הוא Stateless - הוא לא שומר מצב של חיבורים קיימים. מגדירים בו כללי Allow/Deny לפי IP ופורט. ב-AWS הוא פועל ברמת Subnet, ובחצר הלקוח ברמת נתב או מתג.",
+      "source": "שקף 34"
+    },
+    {
+      "id": 10,
+      "type": "negative",
+      "difficulty": "easy",
+      "topic": "DoS vs DDoS",
+      "question": "איזה מאפיין אינו נכון לגבי התקפת DDoS?",
+      "options": [
+        "ההתקפה מגיעה ממקור יחיד מרוכז",
+        "ההתקפה פוגעת בזמינות המערכת",
+        "ההתקפה מבוצעת באמצעות Botnet מבוזר",
+        "ההתקפה מציפה את משאבי היעד"
+      ],
+      "correctIndex": 0,
+      "explanation": "DDoS (Distributed Denial of Service) הוא גרסה מבוזרת של DoS, שבה התקיפה מגיעה מאלפי או מיליוני מקורות בו-זמנית דרך Botnet. המאפיין של מקור יחיד הוא של DoS רגיל ולא של DDoS. שתי התקיפות פוגעות בזמינות השירות.",
+      "source": "שקף 13"
+    },
+    {
+      "id": 11,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Phishing variants",
+      "question": "מנכ\"ל הארגון קיבל מייל אישי ומותאם הנחזה להיות מעורך הדין של החברה. איזה סוג הונאה זה?",
+      "options": [
+        "Regular Phishing המוני ולא ממוקד",
+        "Spear Phishing כללי לעובדים רגילים",
+        "Whaling ממוקד למנהלים בכירים",
+        "Clone Phishing של הודעה קיימת"
+      ],
+      "correctIndex": 2,
+      "explanation": "Whaling הוא סוג של Spear Phishing המכוון ספציפית למנהלים בכירים (דגים גדולים - Whales) כמו מנכ\"ל או סמנכ\"ל כספים. ההודעות מותאמות אישית ולרוב מתחזות לגורמי אמון כמו עו\"ד. Spear Phishing כללי ממוקד לאדם אך לא בהכרח בכיר, ו-Clone Phishing משכפל הודעה קיימת.",
+      "source": "שקף 15"
+    },
+    {
+      "id": 12,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "MITM vs MITB",
+      "question": "לקוח בנק ביצע העברה של 100 ש\"ח, ראה HTTPS תקין, אך בחשבון נרשמה העברה של 10,000 ש\"ח לחשבון זר. מה קרה?",
+      "options": [
+        "התקפת MITM הצליחה לפצח את HTTPS",
+        "התקפת MITB שינתה את העסקה בדפדפן",
+        "Spoofing של DNS העביר לאתר מזויף",
+        "Phishing גרם להזנה של פרטים שגויים"
+      ],
+      "correctIndex": 1,
+      "explanation": "MITB (Man-in-the-Browser) פועל בתוך הדפדפן עצמו באמצעות הרחבה זדונית או טרויאן, ומשנה את העסקה לאחר שהמשתמש אישר אותה. ההתקפה עוקפת HTTPS ו-MFA כי היא פועלת אחרי ההצפנה ואחרי האימות. MITM לעומתה פועלת בין הצדדים בתקשורת.",
+      "source": "שקף 16"
+    },
+    {
+      "id": 13,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "XSS - Stored",
+      "question": "בפורום ציבורי הוזרקה תגובה עם תגית script הנשמרת במסד הנתונים ומופעלת אצל כל מבקר. איזה סוג XSS זה?",
+      "options": [
+        "Stored XSS המאוחסן במסד נתונים",
+        "Reflected XSS המוזרק בקישור URL",
+        "DOM-based XSS הפועל בצד לקוח",
+        "Blind XSS ללא תצוגה למשתמש"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stored XSS (גם Persistent XSS) הוא סוג שבו הקוד הזדוני נשמר בשרת (למשל במסד נתונים של פורום) ומופעל בדפדפן של כל משתמש שנכנס לדף. זו הגרסה המסוכנת ביותר כי היא פוגעת בכל המבקרים. Reflected XSS מועבר דרך URL ו-DOM-based פועל כולו בצד לקוח.",
+      "source": "שקף 18"
+    },
+    {
+      "id": 14,
+      "type": "negative",
+      "difficulty": "medium",
+      "topic": "SQL Injection",
+      "question": "איזו הגנה אינה יעילה כנגד התקפת SQL Injection?",
+      "options": [
+        "שימוש ב-Prepared Statements מפורמטים",
+        "סינון קלט וולידציה בצד שרת",
+        "הצפנת TLS בין הלקוח והשרת",
+        "שימוש ב-ORM עם פרמטרים מוגדרים"
+      ],
+      "correctIndex": 2,
+      "explanation": "הצפנת TLS מגינה על התעבורה בדרך אך אינה מונעת SQL Injection, כי ההזרקה מתבצעת בתוך בקשה לגיטימית שנפתחת בשרת. ההגנות היעילות הן Prepared Statements, סינון קלט, ושימוש ב-ORM שמפריד בין קוד SQL לנתונים. WAF ברמת L7 גם יעיל בחסימת דפוסי הזרקה.",
+      "source": "שקף 19"
+    },
+    {
+      "id": 15,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "Buffer Overflow",
+      "question": "מהי המטרה הסופית של תוקף בהתקפת Buffer Overflow קלאסית?",
+      "options": [
+        "הצפת רוחב הפס של הרשת הארגונית",
+        "גניבת סיסמאות ממסד נתונים מרכזי",
+        "דריסת כתובת החזרה והרצת Shellcode",
+        "חסימת גישה למשאב משותף ברשת"
+      ],
+      "correctIndex": 2,
+      "explanation": "Buffer Overflow הוא כתיבה מעבר לגבולות חוצץ בזיכרון. התוקף ממלא את החוצץ מעבר לגודלו ודורס את כתובת ההחזרה (Return Address) של הפונקציה. בכתובת החדשה יושב Shellcode של התוקף, וכך מתבצעת הרצה שרירותית של קוד ברמת ההרשאות של התהליך הנפגע.",
+      "source": "שקף 20"
+    },
+    {
+      "id": 16,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Password Spraying",
+      "question": "מערכת נועלת חשבון לאחר חמישה ניסיונות כושלים. איזו התקפת סיסמאות תעבוד למרות המגבלה?",
+      "options": [
+        "Brute Force עם ניסיון כל הסיסמאות",
+        "Dictionary Attack עם מילון רחב",
+        "Password Spraying עם סיסמה אחת",
+        "Rainbow Table מול Hash של הסיסמה"
+      ],
+      "correctIndex": 2,
+      "explanation": "Password Spraying מנסה סיסמה פופולרית אחת (למשל Summer2024) מול אלפי חשבונות שונים. כך מספר הניסיונות פר חשבון נשאר נמוך ומתחת לסף הנעילה. Brute Force ו-Dictionary Attack שונים - הם מנסים סיסמאות רבות מול חשבון אחד ויגרמו לנעילתו.",
+      "source": "שקף 17"
+    },
+    {
+      "id": 17,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "Credential Stuffing",
+      "question": "מה ההיגיון המרכזי מאחורי התקפת Credential Stuffing?",
+      "options": [
+        "ניסוי סיסמה פופולרית מול הרבה חשבונות",
+        "שימוש בזוגות סיסמה שדלפו מאתר אחר",
+        "פיצוח Hash של סיסמה באמצעות GPU",
+        "ציתות לתעבורה עם עוגיות אימות"
+      ],
+      "correctIndex": 1,
+      "explanation": "Credential Stuffing מנצל את העובדה שמשתמשים נוהגים להשתמש באותם פרטי התחברות במספר אתרים. התוקף לוקח זוגות user+password שדלפו מאתר אחד ומנסה אותם באתרים אחרים. ההגנה המיטבית היא MFA וסיסמה ייחודית לכל שירות. שונה מ-Password Spraying שהוא סיסמה אחת מול רבים.",
+      "source": "שקף 17"
+    },
+    {
+      "id": 18,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "Replay Attack",
+      "question": "מהי התקפת Replay?",
+      "options": [
+        "שליחה שוב של הודעה תקפה שיורטה",
+        "הצפת שרת בחבילות SYN ללא מענה",
+        "החדרת סקריפט זדוני לדף Web פעיל",
+        "ניחוש סיסמה באמצעות מילון מוכן"
+      ],
+      "correctIndex": 0,
+      "explanation": "Replay Attack היא יירוט של הודעה אותנטית (למשל בקשת תשלום או אימות) ושידורה מחדש בהמשך כדי לבצע את אותה פעולה שוב. ההגנות הסטנדרטיות הן Nonce (מספר חד-פעמי), Timestamp, MAC או חתימה דיגיטלית, ו-Session Token שמבטלים את הערך אחרי שימוש יחיד.",
+      "source": "שקף 17"
+    },
+    {
+      "id": 19,
+      "type": "knowledge",
+      "difficulty": "hard",
+      "topic": "AI-based attacks",
+      "question": "תוקף שולח דוגמאות קלט מניפולטיביות למודל למידת מכונה כדי לגרום לו לסווג לא נכון. מה שם ההתקפה?",
+      "options": [
+        "Data Poisoning במהלך אימון המודל",
+        "Model Inversion עם חשיפת נתונים",
+        "Adversarial Examples במהלך היסק",
+        "Membership Inference על הנתונים"
+      ],
+      "correctIndex": 2,
+      "explanation": "Adversarial Examples היא התקפת AI שבה התוקף יוצר קלטים שעברו מניפולציה מחושבת (לרוב שינויים זעירים לעין אנוש) כדי לגרום למודל לטעות בסיווג במהלך היסק (Inference). Data Poisoning שונה - היא מרעילה את נתוני האימון עצמם לפני שהמודל הופק.",
+      "source": "שקף 17"
+    },
+    {
+      "id": 20,
+      "type": "negative",
+      "difficulty": "easy",
+      "topic": "Packet Filtering Firewall",
+      "question": "איזה מאפיין אינו נכון לגבי Packet Filtering Firewall?",
+      "options": [
+        "מסנן לפי כתובת IP מקור ויעד",
+        "שומר מצב חיבורים בטבלה ב-RAM",
+        "מסנן לפי פרוטוקול כמו TCP ו-UDP",
+        "עובד לפי רשימת ACLs מוגדרת מראש"
+      ],
+      "correctIndex": 1,
+      "explanation": "Packet Filtering הוא Stateless - הוא לא שומר מצב של חיבורים. הוא מסנן כל חבילה בנפרד לפי IP מקור/יעד, פורטים, פרוטוקול וכיוון, בהתאם ל-ACLs. שמירת מצב חיבורים בטבלה היא מאפיין של Stateful Firewall, לא של Packet Filtering.",
+      "source": "שקף 21"
+    },
+    {
+      "id": 21,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "Stateful vs WAF",
+      "question": "ארגון מפעיל Stateful Firewall אך נפרץ דרך SQL Injection. מה ההסבר הטכני לכך?",
+      "options": [
+        "Stateful עובד ב-L3/L4 ולא רואה תוכן HTTP",
+        "Stateful חסום כברירת מחדל לכל התעבורה",
+        "Stateful מפעיל הצפנה חזקה ומפספס איומים",
+        "Stateful נוצר להגן מפני DDoS בלבד"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stateful Firewall פועל בשכבות רשת ותעבורה (L3/L4) ועוקב אחרי State Table של חיבורי TCP, אבל הוא לא רואה את תוכן ההודעה ברמת האפליקציה. SQL Injection מוטמע בתוך גוף בקשת HTTP לגיטימית, ולכן רק WAF ברמת L7 יכול לזהות ולחסום אותה.",
+      "source": "שקף 22"
+    },
+    {
+      "id": 22,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "DMZ configurations",
+      "question": "מה ההבדל המרכזי בין DMZ עם Single Firewall ל-DMZ עם Dual Firewall?",
+      "options": [
+        "Single מהיר יותר ו-Dual מאפשר VPN",
+        "Single זול ו-Dual מספק אבטחה גבוהה יותר",
+        "Single מיועד לענן ו-Dual לחצר לקוח",
+        "Single מסנן תוכן ו-Dual מצפין תעבורה"
+      ],
+      "correctIndex": 1,
+      "explanation": "בתצורת Single Firewall פיירוול יחיד מפריד בין אינטרנט, DMZ ו-LAN - זול אך נקודת כשל יחידה. בתצורת Dual Firewall שני פיירוולים (רצוי מיצרנים שונים) מפרידים: אחד בין אינטרנט ל-DMZ והשני בין DMZ ל-LAN, מה שמספק הגנה עמוקה יותר.",
+      "source": "שקף 24"
+    },
+    {
+      "id": 23,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "IDS vs IPS - Regulatory",
+      "question": "ארגון רגולטורי רוצה זיהוי התקפות אך אסור לו לחסום אוטומטית תעבורה עסקית קריטית. מה יתאים?",
+      "options": [
+        "IPS עם חסימה אקטיבית בזמן אמת",
+        "IDS עם זיהוי והתראה בלבד לצוות",
+        "WAF עם חסימת OWASP אוטומטית",
+        "NACL עם כללי Deny ברמת Subnet"
+      ],
+      "correctIndex": 1,
+      "explanation": "IDS (Intrusion Detection System) מזהה ומתריע בלבד, ואינו חוסם תעבורה. זו הבחירה הנכונה לסביבה שבה חסימה אוטומטית של תעבורה עלולה לשבש תהליכים עסקיים קריטיים. IPS היה חוסם בזמן אמת, ולכן לא מתאים לדרישה להימנע מחסימה אוטומטית.",
+      "source": "שקף 27"
+    },
+    {
+      "id": 24,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Reverse Proxy",
+      "question": "ארגון רוצה להגן על שרתי Web פנימיים, לבצע SSL Termination ו-Load Balancing. מה יתאים?",
+      "options": [
+        "Forward Proxy ליציאת משתמשים לאינטרנט",
+        "Reverse Proxy לפני שרתי Web הפנימיים",
+        "Stateful Firewall בין אינטרנט ל-DMZ",
+        "VPN Gateway עם הצפנת IPsec חזקה"
+      ],
+      "correctIndex": 1,
+      "explanation": "Reverse Proxy ממוקם לפני שרתי Web פנימיים ומקבל בקשות חיצוניות במקומם. הוא מבצע SSL Termination (פענוח HTTPS), Load Balancing בין מספר שרתים, Caching והסתרת מבנה פנימי. Forward Proxy משמש למטרה הפוכה - יציאה מבוקרת של משתמשים פנימיים החוצה.",
+      "source": "שקף 30"
+    },
+    {
+      "id": 25,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "DDoS defense layers",
+      "question": "מדוע חסימת IP יחיד אינה מספיקה נגד DDoS, ונדרשות שכבות הגנה מתקדמות?",
+      "options": [
+        "כי תעבורת DDoS מגיעה מ-Botnet מבוזר",
+        "כי התעבורה מוצפנת ולא ניתן לזהות IP",
+        "כי פיירוול ארגוני אינו מזהה TCP כלל",
+        "כי חבילות DDoS חייבות לעבור דרך VPN"
+      ],
+      "correctIndex": 0,
+      "explanation": "DDoS מגיע מאלפי או מיליוני כתובות IP שונות דרך Botnet, ולכן חסימת IP יחיד לא עוזרת. נדרשות שלוש שכבות הגנה: ניתוח התנהגותי, אתגרי אימות (JS Challenge, Cookie, CAPTCHA) ו-Rate Limiting עם Fingerprinting כדי להבדיל בין משתמשים לגיטימיים לבוטים.",
+      "source": "שקף 13"
+    },
+    {
+      "id": 26,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "FireEye MVX",
+      "question": "כיצד פועלת טכנולוגיית FireEye MVX להגנה מפני איומים?",
+      "options": [
+        "השוואת חתימות מול מאגר וירוסים ידועים",
+        "הרצת קבצים בארגז חול ובחינת התנהגות",
+        "הצפנת כל התעבורה הנכנסת למערכות",
+        "חסימה לפי רשימת IPs שחורים קבועה"
+      ],
+      "correctIndex": 1,
+      "explanation": "FireEye MVX (Multi-Vector Virtual Execution) הוא ארגז חול וירטואלי שמריץ קבצים חשודים בסביבה מבודדת ובוחן את התנהגותם (מה הקובץ מנסה לעשות?) במקום להסתמך על חתימות. זו הגנה יעילה נגד Zero-Day, APT ו-Ransomware שאין להם עדיין חתימה ידועה.",
+      "source": "שקף 11"
+    },
+    {
+      "id": 27,
+      "type": "knowledge",
+      "difficulty": "easy",
+      "topic": "CIA Triad",
+      "question": "מה שלוש עקרונות היסוד של CIA באבטחת מידע?",
+      "options": [
+        "אימות, אישור וביקורת לוגים",
+        "סודיות, שלמות וזמינות",
+        "הצפנה, הרשאה ותקשורת",
+        "זיהוי, חסימה ושחזור"
+      ],
+      "correctIndex": 1,
+      "explanation": "CIA הוא משולש הליבה של אבטחת מידע: Confidentiality (סודיות - מניעת חשיפה ללא הרשאה), Integrity (שלמות - מניעת שינוי לא מורשה), ו-Availability (זמינות - ודאות גישה למשאב בעת הצורך). אחת ממטרות ההגנה בשכבות היא חיזוק שלושת המאפיינים הללו.",
+      "source": "שקף 5"
+    },
+    {
+      "id": 28,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "XSS - Reflected vs DOM",
+      "question": "משתמש לחץ על קישור שבו הפרמטר מכיל script, והשרת החזיר אותו בתגובת HTML. איזה סוג XSS זה?",
+      "options": [
+        "Stored XSS המאוחסן במסד נתונים מתמשך",
+        "Reflected XSS המוחזר בתגובת שרת",
+        "DOM-based XSS המופעל בצד לקוח",
+        "Blind XSS ללא משוב חזותי למשתמש"
+      ],
+      "correctIndex": 1,
+      "explanation": "Reflected XSS הוא סוג שבו הקוד הזדוני מוזרק בפרמטר URL, השרת מחזיר אותו בתגובת HTML והדפדפן מריץ אותו. בניגוד ל-Stored שנשמר בשרת, כאן ההתקפה חד-פעמית ודורשת הבאת הקורבן ללחוץ על קישור. DOM-based שונה - הוא לא מערב את השרת וכולו בצד לקוח.",
+      "source": "שקף 18"
+    },
+    {
+      "id": 29,
+      "type": "comprehension",
+      "difficulty": "medium",
+      "topic": "Clone Phishing",
+      "question": "עובד קיבל שוב הודעת עדכון ממערכת שירות הענן שקיבל לפני יומיים, אך הפעם הלינק זדוני. איזה סוג הונאה?",
+      "options": [
+        "Regular Phishing המוני ולא מותאם",
+        "Spear Phishing ממוקד לפי מידע אישי",
+        "Clone Phishing בשכפול הודעה לגיטימית",
+        "Whaling הממוקד למנהלים בכירים"
+      ],
+      "correctIndex": 2,
+      "explanation": "Clone Phishing היא הונאה שבה התוקף משכפל הודעה לגיטימית אמיתית שהקורבן כבר קיבל, ומחליף את הקישורים או הקבצים בגרסה זדונית. ההיכרות עם ההודעה המקורית מגבירה את אמון הקורבן. Spear Phishing שונה - יוצר הודעה חדשה מותאמת עם מידע אישי על הקורבן.",
+      "source": "שקף 15"
+    },
+    {
+      "id": 30,
+      "type": "negative",
+      "difficulty": "easy",
+      "topic": "VPN misconceptions",
+      "question": "איזה מאפיין אינו נכון לגבי VPN?",
+      "options": [
+        "מספק סודיות באמצעות הצפנה",
+        "מספק שלמות נגד שינוי בדרך",
+        "מספק אימות זהות של הצדדים",
+        "מספק הגנה מלאה מפני כל התקפה"
+      ],
+      "correctIndex": 3,
+      "explanation": "VPN מספק סודיות, שלמות ואימות זהות על תעבורה בין נקודות קצה. הוא אינו מספק הגנה מפני כל ההתקפות - תוקף שהדביק את תחנת המשתמש בטרויאן או שהמשתמש נופל להונאת Phishing לא מוגן על ידי VPN. VPN מגן על התעבורה, לא על הקצוות עצמם.",
+      "source": "שקף 32"
+    },
+    {
+      "id": 31,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "MITB bypasses HTTPS",
+      "question": "מדוע MFA ו-HTTPS אינם מספיקים כדי להגן מפני Man-in-the-Browser?",
+      "options": [
+        "כי התוקף פועל בדפדפן אחרי האימות",
+        "כי MFA לא תומך בדפדפני מודרנים",
+        "כי HTTPS תקף רק בחיבור עם VPN",
+        "כי MFA דורש גישה פיזית למכשיר"
+      ],
+      "correctIndex": 0,
+      "explanation": "MITB מתקיים בתוך הדפדפן עצמו באמצעות Extension או טרויאן, אחרי שהמשתמש עבר בהצלחה אימות MFA וחיבור HTTPS הוקם. התוקף שולט במה שהמשתמש רואה ובמה שנשלח בפועל, ולכן גם עם הצפנה ואימות חזקים העסקה משונה. ההגנה היא הקשחת הדפדפן וזיהוי טרויאנים.",
+      "source": "שקף 16"
+    },
+    {
+      "id": 32,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "NACL use case",
+      "question": "צוות ענן רוצה להחיל כללי Allow/Deny ברמת Subnet שלם ב-AWS לפני ה-Security Groups. מה ישמש?",
+      "options": [
+        "Network ACL ברמת תת-הרשת המוגדרת",
+        "Web Application Firewall ברמת L7",
+        "Forward Proxy ליציאה ממשתמשים פנימיים",
+        "IPS עם חסימה בזמן אמת לאיומים"
+      ],
+      "correctIndex": 0,
+      "explanation": "NACL (Network ACL) הוא בקרת גישה Stateless ברמת Subnet ב-AWS, ופועל לפני Security Groups שהם Stateful ברמת משאב. הוא משמש כשכבת חומה ראשונה עם כללי Allow/Deny לפי IP ופורט. בחצר לקוח NACL מיושם ברמת נתב או מתג.",
+      "source": "שקף 34"
+    },
+    {
+      "id": 33,
+      "type": "comprehension",
+      "difficulty": "easy",
+      "topic": "Defense in Depth principle",
+      "question": "מהי הנחת היסוד שעומדת בבסיס גישת הגנה בשכבות?",
+      "options": [
+        "כל שכבה חייבת להיות חזקה לחלוטין",
+        "תקיפות עלולות להצליח ויש צורך בחוסן",
+        "הגנה היקפית מספיקה בפני כל איום",
+        "רק טכנולוגיה יכולה לעצור התקפות מתקדמות"
+      ],
+      "correctIndex": 1,
+      "explanation": "ההנחה המרכזית של Defense in Depth היא שאף שכבת הגנה אינה חסינה לחלוטין, ושתקיפות עלולות להצליח לחדור. לכן נדרש שילוב של מספר שכבות מסוגים שונים כך שכשל בשכבה אחת לא יגרום לחשיפה מלאה. הגישה דוגלת בחוסן ולא בטענה שכל שכבה תעמוד.",
+      "source": "שקף 5"
+    },
+    {
+      "id": 34,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "Target 2013 - supplier breach",
+      "question": "בתקיפת Target 2013 התוקפים פרצו דרך קבלן מיזוג אוויר ואז נעו חופשית ברשת. מה הכשל העיקרי?",
+      "options": [
+        "לא הייתה סגמנטציה מספקת בין מערכות",
+        "לא הותקן פיירוול בכניסה לאינטרנט",
+        "כרטיסי האשראי נשמרו בטקסט גלוי",
+        "תוכנת FireEye לא הייתה מותקנת כלל"
+      ],
+      "correctIndex": 0,
+      "explanation": "אחד הכשלים המרכזיים ב-Target 2013 היה היעדר סגמנטציה מספקת - התוקפים פרצו דרך ספק חיצוני (מיזוג אוויר) והגיעו לקופות הרושמות. סגמנטציה פנימית נכונה הייתה מונעת Lateral Movement בין רשת הספקים למערכת התשלומים. בנוסף, FireEye הייתה מותקנת אך ההתראות לא טופלו.",
+      "source": "שקף 8"
+    },
+    {
+      "id": 35,
+      "type": "negative",
+      "difficulty": "hard",
+      "topic": "Stateful Firewall capabilities",
+      "question": "איזה מאפיין אינו נכון לגבי Stateful Firewall?",
+      "options": [
+        "עוקב אחרי מספרי SEQ של TCP",
+        "שומר טבלת מצב חיבורים ב-RAM",
+        "מזהה הזרקות SQL ברמת אפליקציה",
+        "מונע Spoofing של חיבורים קיימים"
+      ],
+      "correctIndex": 2,
+      "explanation": "Stateful Firewall פועל ברמת L3/L4 - הוא עוקב אחר מצב חיבורי TCP בטבלה ב-RAM, בודק מספרי SEQ ומונע Spoofing של סשנים. אבל הוא אינו רואה את תוכן ההודעה ברמת האפליקציה ולא יכול לזהות SQL Injection - זו הגנה ברמת WAF (L7) בלבד.",
+      "source": "שקף 21"
+    },
+    {
+      "id": 36,
+      "type": "logic",
+      "difficulty": "hard",
+      "topic": "OWASP Top 10 coverage",
+      "question": "ארגון מעוניין בהגנה ממוקדת נגד רשימת OWASP Top 10. איזו בחירה היא המתאימה ביותר?",
+      "options": [
+        "Stateful Firewall עם טבלת מצב TCP",
+        "WAF ברמת אפליקציה עם חוקי OWASP",
+        "VPN עם הצפנה חזקה לכל המשתמשים",
+        "NACL ברמת Subnet עם כללי Deny"
+      ],
+      "correctIndex": 1,
+      "explanation": "OWASP Top 10 היא רשימת עשר הפגיעויות הנפוצות של יישומי Web (Injection, XSS, Broken Auth ועוד). WAF פועל ברמת L7 ורואה את תוכן בקשות HTTP/S, ולכן יכול לזהות ולחסום בדיוק את הפגיעויות הללו. פיירוולים ברמת L3/L4 לא יעילים נגד איומים אפליקטיביים.",
+      "source": "שקף 22"
+    },
+    {
+      "id": 37,
+      "type": "scenario",
+      "difficulty": "medium",
+      "topic": "Packet Filtering scenario",
+      "question": "ארגון רוצה חסימה פשוטה של IP מסוים על פורט 23 (Telnet) ללא מעקב חיבורים. מה יתאים?",
+      "options": [
+        "Packet Filtering Firewall עם ACL פשוט",
+        "WAF עם חוקי OWASP Top 10",
+        "Reverse Proxy עם SSL Termination",
+        "IDS עם התראות לצוות אבטחה"
+      ],
+      "correctIndex": 0,
+      "explanation": "Packet Filtering Firewall הוא הפתרון הפשוט והמהיר ביותר לחסימה לפי IP, פורט ופרוטוקול באמצעות ACL. הוא Stateless ולא שומר מצב חיבורים, ולכן מתאים לחסימות בסיסיות. WAF ו-Reverse Proxy הם ברמת L7 ומיועדים ליישומים, ו-IDS רק מתריע ולא חוסם.",
+      "source": "שקף 21"
+    },
+    {
+      "id": 38,
+      "type": "negative",
+      "difficulty": "medium",
+      "topic": "XSS types distinction",
+      "question": "איזה קביעה אינה נכונה לגבי סוגי XSS?",
+      "options": [
+        "Stored נשמר במסד הנתונים של האתר",
+        "Reflected מוזרק דרך פרמטר בכתובת URL",
+        "DOM-based פועל בצד לקוח ללא שרת",
+        "DOM-based חייב תמיד לעבור דרך שרת"
+      ],
+      "correctIndex": 3,
+      "explanation": "DOM-based XSS הוא הסוג היחיד מבין השלושה שלא חייב לעבור דרך השרת. הוא פועל כולו בצד לקוח דרך שינוי ב-DOM של הדפדפן. Stored נשמר בשרת במסד הנתונים ומופעל לכל משתמש שנכנס, ו-Reflected מוזרק דרך URL ומוחזר בתגובת השרת.",
+      "source": "שקף 18"
+    },
+    {
+      "id": 39,
+      "type": "logic",
+      "difficulty": "medium",
+      "topic": "Forward vs Reverse Proxy direction",
+      "question": "מהו ההיגיון המרכזי שמבדיל בין Forward Proxy ל-Reverse Proxy?",
+      "options": [
+        "כיוון התעבורה - יציאה פנימית מול כניסה חיצונית",
+        "רמת השכבה - L3 מול L7 בפרוטוקול TCP",
+        "סוג ההצפנה - סימטרית מול אסימטרית",
+        "מיקום פיזי - ענן ציבורי מול חצר לקוח"
+      ],
+      "correctIndex": 0,
+      "explanation": "ההבדל המרכזי בין Forward Proxy ל-Reverse Proxy הוא כיוון התעבורה שבה הם מטפלים. Forward Proxy משרת משתמשים פנימיים היוצאים לאינטרנט (כניסה של הבקשה מבפנים החוצה), ואילו Reverse Proxy משרת בקשות של משתמשים חיצוניים הנכנסות לשרתים פנימיים.",
+      "source": "שקף 30"
+    },
+    {
+      "id": 40,
+      "type": "scenario",
+      "difficulty": "hard",
+      "topic": "Holistic perimeter defense",
+      "question": "ארגון התקין WAF מתקדם אך נפרץ כי אף אחד לא טיפל בהתראות. מה העיקרון שנכשל?",
+      "options": [
+        "WAF אינו מסוגל לזהות SQL Injection",
+        "שילוב טכנולוגיה עם תהליך ואדם",
+        "הצפנה ברמת אפליקציה חלשה מדי",
+        "סגמנטציה פנימית הייתה חסרה כלל"
+      ],
+      "correctIndex": 1,
+      "explanation": "אחת מארבע מטרות הגנה בשכבות היא שילוב טכנולוגיה + תהליך + אדם. WAF לבדו הוא רכיב טכנולוגי - ללא נוהל שמגדיר מי מקבל התראות וללא אדם מיומן שמטפל בהן, הטכנולוגיה חסרת ערך. זה בדיוק הלקח שעלה גם מאירוע Target 2013 עם התראות FireEye.",
+      "source": "שקף 5"
+    }
+  ]
+}

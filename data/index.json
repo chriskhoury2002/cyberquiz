@@ -8,8 +8,98 @@
       "file": "data/quizzes/quiz-01-intro.json",
       "theme": "signature",
       "difficulty": "beginner",
-      "estimatedMinutes": 10,
-      "questionCount": 8
+      "estimatedMinutes": 20,
+      "questionCount": 35
+    },
+    {
+      "id": "quiz-02-defense-theory",
+      "title": "תורת ההגנה בסייבר - תאוריה",
+      "presentationNumber": 2,
+      "file": "data/quizzes/quiz-02-defense-theory.json",
+      "theme": "signature",
+      "difficulty": "intermediate",
+      "estimatedMinutes": 18,
+      "questionCount": 30
+    },
+    {
+      "id": "quiz-03-defense-practice",
+      "title": "תורת ההגנה בסייבר - פרקטיקה",
+      "presentationNumber": 3,
+      "file": "data/quizzes/quiz-03-defense-practice.json",
+      "theme": "signature",
+      "difficulty": "intermediate",
+      "estimatedMinutes": 15,
+      "questionCount": 25
+    },
+    {
+      "id": "quiz-04-physical",
+      "title": "אבטחת מידע בשכבה הפיזית",
+      "presentationNumber": 4,
+      "file": "data/quizzes/quiz-04-physical.json",
+      "theme": "signature",
+      "difficulty": "beginner",
+      "estimatedMinutes": 18,
+      "questionCount": 30
+    },
+    {
+      "id": "quiz-05-network",
+      "title": "אבטחה בשכבת הנתונים והרשת",
+      "presentationNumber": 5,
+      "file": "data/quizzes/quiz-05-network.json",
+      "theme": "signature",
+      "difficulty": "intermediate",
+      "estimatedMinutes": 20,
+      "questionCount": 35
+    },
+    {
+      "id": "quiz-06-perimeter",
+      "title": "הגנה בשכבות - הגנה היקפית",
+      "presentationNumber": 6,
+      "file": "data/quizzes/quiz-06-perimeter.json",
+      "theme": "signature",
+      "difficulty": "advanced",
+      "estimatedMinutes": 25,
+      "questionCount": 40
+    },
+    {
+      "id": "quiz-07-internal",
+      "title": "הגנה בשכבות - הגנה פנימית",
+      "presentationNumber": 7,
+      "file": "data/quizzes/quiz-07-internal.json",
+      "theme": "signature",
+      "difficulty": "advanced",
+      "estimatedMinutes": 22,
+      "questionCount": 35
+    },
+    {
+      "id": "quiz-08-cloud",
+      "title": "מבוא לאבטחת ענן",
+      "presentationNumber": 8,
+      "file": "data/quizzes/quiz-08-cloud.json",
+      "theme": "signature",
+      "difficulty": "intermediate",
+      "estimatedMinutes": 22,
+      "questionCount": 35
+    },
+    {
+      "id": "quiz-09-encryption",
+      "title": "הצפנה בעולם הסייבר",
+      "presentationNumber": 9,
+      "file": "data/quizzes/quiz-09-encryption.json",
+      "theme": "signature",
+      "difficulty": "advanced",
+      "estimatedMinutes": 20,
+      "questionCount": 30
+    },
+    {
+      "id": "quiz-10-iam",
+      "title": "אימות וניהול זהויות (IAM)",
+      "presentationNumber": 10,
+      "file": "data/quizzes/quiz-10-iam.json",
+      "theme": "signature",
+      "difficulty": "advanced",
+      "estimatedMinutes": 22,
+      "questionCount": 35
     }
   ],
   "themes": {
