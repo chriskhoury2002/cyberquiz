@@ -40,6 +40,10 @@
                     <span class="profile-chip-arrow" aria-hidden="true">▾</span>
                 </button>
                 <div class="profile-menu" data-role="profile-menu" hidden>
+                    <div class="profile-menu-header">
+                        <span class="profile-menu-title">הפרופיל שלך</span>
+                        <button class="profile-menu-close" data-role="profile-close" aria-label="סגור">×</button>
+                    </div>
                     <p class="profile-menu-note">
                         ההתקדמות שלך נשמרת רק בדפדפן הזה, תחת הפרופיל הפעיל.
                         כל פרופיל רואה רק את הנתונים שלו.
@@ -53,6 +57,34 @@
             </div>
         </div>
     </header>
+
+    <dialog class="app-modal" data-role="profile-modal" aria-labelledby="profile-modal-title">
+        <form method="dialog" class="app-modal-card">
+            <header class="app-modal-header">
+                <h3 id="profile-modal-title" class="app-modal-title" data-role="profile-modal-title">שם הפרופיל</h3>
+                <button type="button" class="app-modal-close" data-role="profile-modal-close" aria-label="סגור">×</button>
+            </header>
+            <p class="app-modal-desc" data-role="profile-modal-desc">
+                בחר שם שיזהה אותך בדפדפן הזה. הנתונים נשארים מקומית — לא נשלחים לשום שרת.
+            </p>
+            <label class="app-modal-input-wrap">
+                <span class="app-modal-input-label">שם פרופיל</span>
+                <input
+                    type="text"
+                    class="app-modal-input"
+                    data-role="profile-modal-input"
+                    maxlength="24"
+                    placeholder="לדוגמה: כריס, david, דני-לימוד..."
+                    autocomplete="off"
+                    required>
+                <span class="app-modal-hint">אותיות עברית/אנגלית/מספרים · עד 24 תווים</span>
+            </label>
+            <footer class="app-modal-actions">
+                <button type="button" class="btn btn-ghost" data-role="profile-modal-cancel">ביטול</button>
+                <button type="submit" class="btn btn-primary" data-role="profile-modal-ok">שמור</button>
+            </footer>
+        </form>
+    </dialog>
 
     <main class="container">
         <section class="hero">

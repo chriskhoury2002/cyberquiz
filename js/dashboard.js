@@ -49,6 +49,7 @@ function renderProfile() {
 function wireProfileMenu() {
     const chip = document.querySelector('[data-role="profile-chip"]');
     const menu = document.querySelector('[data-role="profile-menu"]');
+    const closeBtn = document.querySelector('[data-role="profile-close"]');
     const switchBtn = document.querySelector('[data-role="profile-switch"]');
     const resetBtn = document.querySelector('[data-role="profile-reset"]');
     if (!chip || !menu) return;
@@ -64,27 +65,105 @@ function wireProfileMenu() {
         setOpen(menu.hidden);
     });
 
+    closeBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setOpen(false);
+    });
+
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.profile-area')) setOpen(false);
     });
 
     switchBtn?.addEventListener('click', () => {
-        const current = Storage.getActiveProfile();
-        const input = prompt('שם הפרופיל (אותיות עבריות/אנגליות, עד 24 תווים):', current);
-        if (input == null) return;
-        const cleaned = Storage.setActiveProfile(input);
-        refreshEverything(cleaned);
+        openProfileModal({
+            title: 'החלפת פרופיל',
+            description: 'כתוב שם כדי להיכנס לפרופיל קיים, או שם חדש כדי ליצור פרופיל חדש עם התקדמות ריקה. הנתונים נשארים רק בדפדפן הזה.',
+            initialValue: Storage.getActiveProfile(),
+            onConfirm: (value) => {
+                const cleaned = Storage.setActiveProfile(value);
+                setOpen(false);
+                refreshEverything();
+                return cleaned;
+            },
+        });
     });
 
     resetBtn?.addEventListener('click', () => {
         const current = Storage.getActiveProfile();
-        const confirmed = confirm(`לאפס את כל ההתקדמות של הפרופיל "${current}"?\nפעולה זו אינה הפיכה.`);
-        if (!confirmed) return;
-        const removed = Storage.clearProfile(current);
-        alert(`נוקו ${removed} רשומות של הפרופיל "${current}".`);
-        refreshEverything();
+        openConfirmModal({
+            title: `לאפס את "${current}"?`,
+            description: `פעולה זו תמחק את כל ההתקדמות של הפרופיל "${current}" (ציונים, שאלות שגויות, דגלים). שאר הפרופילים לא יושפעו. פעולה זו אינה הפיכה.`,
+            confirmLabel: 'אפס',
+            onConfirm: () => {
+                Storage.clearProfile(current);
+                setOpen(false);
+                refreshEverything();
+            },
+        });
     });
 }
+
+/* =============== Themed modal helpers =============== */
+
+const modal = document.querySelector('[data-role="profile-modal"]');
+const modalTitle = document.querySelector('[data-role="profile-modal-title"]');
+const modalDesc = document.querySelector('[data-role="profile-modal-desc"]');
+const modalInput = document.querySelector('[data-role="profile-modal-input"]');
+const modalInputWrap = modalInput?.closest('.app-modal-input-wrap');
+const modalForm = modal?.querySelector('form');
+const modalCancelBtn = document.querySelector('[data-role="profile-modal-cancel"]');
+const modalCloseBtn = document.querySelector('[data-role="profile-modal-close"]');
+const modalOkBtn = document.querySelector('[data-role="profile-modal-ok"]');
+
+let activeConfirm = null;
+
+function closeModal() {
+    if (!modal || !modal.open) return;
+    modal.close();
+    activeConfirm = null;
+}
+
+function openProfileModal({ title, description, initialValue = '', onConfirm }) {
+    if (!modal) return;
+    modalTitle.textContent = title;
+    modalDesc.textContent = description;
+    if (modalInputWrap) modalInputWrap.hidden = false;
+    modalInput.value = initialValue;
+    modalOkBtn.textContent = 'שמור';
+    activeConfirm = () => {
+        const v = (modalInput.value || '').trim();
+        if (!v) { modalInput.focus(); return false; }
+        onConfirm(v);
+        return true;
+    };
+    modal.showModal();
+    setTimeout(() => { modalInput.focus(); modalInput.select(); }, 20);
+}
+
+function openConfirmModal({ title, description, confirmLabel = 'אישור', onConfirm }) {
+    if (!modal) return;
+    modalTitle.textContent = title;
+    modalDesc.textContent = description;
+    if (modalInputWrap) modalInputWrap.hidden = true;
+    modalOkBtn.textContent = confirmLabel;
+    activeConfirm = () => { onConfirm(); return true; };
+    modal.showModal();
+    setTimeout(() => modalOkBtn.focus(), 20);
+}
+
+// Wire once on module load.
+if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (activeConfirm && activeConfirm() !== false) closeModal();
+    });
+}
+modalCancelBtn?.addEventListener('click', closeModal);
+modalCloseBtn?.addEventListener('click', closeModal);
+// Clicking the backdrop (outside the card) closes too.
+modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+});
 
 function renderProfileList() {
     const listEl = document.querySelector('[data-role="profile-list"]');

@@ -185,6 +185,35 @@
     flex-direction: column;
     gap: 0.8rem;
 }
+.profile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.profile-menu-title {
+    font-weight: 700;
+    color: var(--color-text-strong);
+    font-size: 0.95rem;
+}
+.profile-menu-close {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-text-dim);
+    font-size: 1.3rem;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+}
+.profile-menu-close:hover {
+    background: var(--color-surface);
+    color: var(--color-text-strong);
+}
 .profile-menu-note {
     margin: 0;
     padding: 0.6rem 0.75rem;
@@ -237,6 +266,133 @@
 
 @media (max-width: 640px) {
     .profile-chip-label { display: none; }
+}
+
+/* =============== App Modal (themed dialog) ===============
+   Uses native <dialog>. The user agent provides Esc-to-close and
+   focus trapping for free; we only style it.
+*/
+.app-modal {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    max-width: min(480px, calc(100vw - 2rem));
+    width: 100%;
+    border-radius: var(--radius-xl);
+    /* direction for RTL content inside */
+    direction: rtl;
+}
+.app-modal::backdrop {
+    background: rgba(10, 10, 15, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+/* Fade/slide-in animation on open. The [open] attribute is set by the UA. */
+.app-modal[open] {
+    animation: modal-pop 0.25s var(--ease-out);
+}
+@keyframes modal-pop {
+    from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+.app-modal-card {
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border-radius: var(--radius-xl);
+    background: var(--color-bg);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px -5px color-mix(in srgb, var(--color-primary) 30%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.app-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+.app-modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text-strong);
+}
+.app-modal-close {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: var(--color-surface);
+    color: var(--color-text-dim);
+    font-size: 1.4rem;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.app-modal-close:hover {
+    background: color-mix(in srgb, var(--color-error) 20%, transparent);
+    color: var(--color-error);
+    transform: rotate(90deg);
+}
+
+.app-modal-desc {
+    margin: 0;
+    color: var(--color-text-dim);
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.app-modal-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.app-modal-input-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+.app-modal-input {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-strong);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+.app-modal-input:focus {
+    outline: none;
+    background: var(--color-surface-strong);
+    border-color: var(--color-accent);
+}
+.app-modal-input::placeholder {
+    color: var(--color-text-dim);
+    opacity: 0.7;
+}
+.app-modal-hint {
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+}
+
+.app-modal-actions {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: flex-end;
+    margin-top: 0.25rem;
+}
+.app-modal-actions .btn { min-width: 100px; }
+
+@media (max-width: 480px) {
+    .app-modal-actions {
+        flex-direction: column-reverse;
+    }
+    .app-modal-actions .btn { width: 100%; }
 }
 
 /* =============== Hero =============== */
