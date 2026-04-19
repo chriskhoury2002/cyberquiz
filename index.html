@@ -59,15 +59,18 @@
     </header>
 
     <dialog class="app-modal" data-role="profile-modal" aria-labelledby="profile-modal-title">
-        <form method="dialog" class="app-modal-card">
+        <form method="dialog" class="app-modal-card" data-variant="input">
             <header class="app-modal-header">
-                <h3 id="profile-modal-title" class="app-modal-title" data-role="profile-modal-title">שם הפרופיל</h3>
+                <div class="app-modal-icon" data-role="profile-modal-icon" aria-hidden="true">👤</div>
+                <div class="app-modal-header-text">
+                    <h3 id="profile-modal-title" class="app-modal-title" data-role="profile-modal-title">שם הפרופיל</h3>
+                </div>
                 <button type="button" class="app-modal-close" data-role="profile-modal-close" aria-label="סגור">×</button>
             </header>
             <p class="app-modal-desc" data-role="profile-modal-desc">
                 בחר שם שיזהה אותך בדפדפן הזה. הנתונים נשארים מקומית — לא נשלחים לשום שרת.
             </p>
-            <label class="app-modal-input-wrap">
+            <label class="app-modal-input-wrap" data-role="profile-modal-input-wrap">
                 <span class="app-modal-input-label">שם פרופיל</span>
                 <input
                     type="text"
@@ -75,8 +78,8 @@
                     data-role="profile-modal-input"
                     maxlength="24"
                     placeholder="לדוגמה: כריס, david, דני-לימוד..."
-                    autocomplete="off"
-                    required>
+                    autocomplete="off">
+                <span class="app-modal-error" data-role="profile-modal-error" hidden></span>
                 <span class="app-modal-hint">אותיות עברית/אנגלית/מספרים · עד 24 תווים</span>
             </label>
             <footer class="app-modal-actions">
@@ -85,6 +88,8 @@
             </footer>
         </form>
     </dialog>
+
+    <div class="toast" data-role="toast" role="status" aria-live="polite" hidden></div>
 
     <main class="container">
         <section class="hero">

@@ -312,14 +312,44 @@
 
 .app-modal-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+}
+.app-modal-header-text {
+    flex: 1;
+    min-width: 0;
 }
 .app-modal-title {
     margin: 0;
     font-size: 1.25rem;
     color: var(--color-text-strong);
+    line-height: 1.3;
+}
+.app-modal-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+/* When in danger variant, icon + border switch to red tones */
+[data-variant="danger"] .app-modal-icon {
+    background: color-mix(in srgb, var(--color-error) 18%, transparent);
+    border-color: color-mix(in srgb, var(--color-error) 45%, transparent);
+}
+[data-variant="danger"] .app-modal-card {
+    border-color: color-mix(in srgb, var(--color-error) 45%, var(--color-border));
+}
+[data-variant="danger"] [data-role="profile-modal-ok"] {
+    background: linear-gradient(135deg, var(--color-error), #9f0f12);
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--color-error) 40%, transparent);
+}
+[data-variant="danger"] [data-role="profile-modal-ok"]:hover {
+    box-shadow: 0 6px 30px color-mix(in srgb, var(--color-error) 55%, transparent);
 }
 .app-modal-close {
     display: grid;
@@ -379,6 +409,42 @@
     font-size: 0.75rem;
     color: var(--color-text-dim);
 }
+.app-modal-error {
+    font-size: 0.8rem;
+    color: var(--color-error);
+    font-weight: 500;
+}
+.app-modal-input.is-invalid {
+    border-color: var(--color-error);
+    background: color-mix(in srgb, var(--color-error) 8%, var(--color-surface));
+}
+
+/* =============== Toast notifications =============== */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    inset-inline-start: 50%;
+    transform: translateX(50%);
+    /* RTL: translateX(50%) with inset-inline-start: 50% centers the toast */
+    padding: 0.8rem 1.3rem;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-strong);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+    color: var(--color-text-strong);
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000;
+    animation: toast-in 0.3s var(--ease-out);
+}
+@keyframes toast-in {
+    from { opacity: 0; transform: translate(50%, 10px); }
+    to   { opacity: 1; transform: translate(50%, 0); }
+}
+.toast[data-variant="success"] { border-color: var(--color-success); }
+.toast[data-variant="danger"]  { border-color: var(--color-error); }
 
 .app-modal-actions {
     display: flex;

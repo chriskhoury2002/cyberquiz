@@ -46,6 +46,18 @@ function renderProfile() {
     if (nameEl) nameEl.textContent = Storage.getActiveProfile();
 }
 
+/**
+ * Close the profile dropdown. Defined at module scope so the modal helpers
+ * can call it too (they need to dismiss the dropdown before opening the
+ * overlay, otherwise it stays visible behind the backdrop — confusing).
+ */
+function closeProfileDropdown() {
+    const menu = document.querySelector('[data-role="profile-menu"]');
+    const chip = document.querySelector('[data-role="profile-chip"]');
+    if (menu) menu.hidden = true;
+    if (chip) chip.setAttribute('aria-expanded', 'false');
+}
+
 function wireProfileMenu() {
     const chip = document.querySelector('[data-role="profile-chip"]');
     const menu = document.querySelector('[data-role="profile-menu"]');
@@ -66,6 +78,7 @@ function wireProfileMenu() {
     });
 
     closeBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         setOpen(false);
     });
@@ -75,29 +88,34 @@ function wireProfileMenu() {
     });
 
     switchBtn?.addEventListener('click', () => {
+        closeProfileDropdown(); // dismiss dropdown first for a clean overlay
         openProfileModal({
             title: 'החלפת פרופיל',
-            description: 'כתוב שם כדי להיכנס לפרופיל קיים, או שם חדש כדי ליצור פרופיל חדש עם התקדמות ריקה. הנתונים נשארים רק בדפדפן הזה.',
+            description: 'כתוב שם קיים כדי להיכנס אליו, או שם חדש כדי ליצור פרופיל חדש עם התקדמות ריקה. הנתונים נשארים רק בדפדפן הזה.',
+            icon: '👤',
             initialValue: Storage.getActiveProfile(),
             onConfirm: (value) => {
                 const cleaned = Storage.setActiveProfile(value);
-                setOpen(false);
                 refreshEverything();
+                showToast(`נכנסת לפרופיל "${cleaned}"`, 'success');
                 return cleaned;
             },
         });
     });
 
     resetBtn?.addEventListener('click', () => {
+        closeProfileDropdown();
         const current = Storage.getActiveProfile();
         openConfirmModal({
             title: `לאפס את "${current}"?`,
-            description: `פעולה זו תמחק את כל ההתקדמות של הפרופיל "${current}" (ציונים, שאלות שגויות, דגלים). שאר הפרופילים לא יושפעו. פעולה זו אינה הפיכה.`,
-            confirmLabel: 'אפס',
+            description: `פעולה זו תמחק את כל ההתקדמות של הפרופיל "${current}" (ציונים, שאלות שגויות, דגלים). שאר הפרופילים לא יושפעו. לא ניתן לשחזר.`,
+            icon: '⚠️',
+            variant: 'danger',
+            confirmLabel: 'כן, אפס',
             onConfirm: () => {
-                Storage.clearProfile(current);
-                setOpen(false);
+                const removed = Storage.clearProfile(current);
                 refreshEverything();
+                showToast(`נוקו ${removed} רשומות של "${current}"`, 'danger');
             },
         });
     });
@@ -106,10 +124,13 @@ function wireProfileMenu() {
 /* =============== Themed modal helpers =============== */
 
 const modal = document.querySelector('[data-role="profile-modal"]');
+const modalCard = modal?.querySelector('.app-modal-card');
 const modalTitle = document.querySelector('[data-role="profile-modal-title"]');
 const modalDesc = document.querySelector('[data-role="profile-modal-desc"]');
+const modalIcon = document.querySelector('[data-role="profile-modal-icon"]');
 const modalInput = document.querySelector('[data-role="profile-modal-input"]');
-const modalInputWrap = modalInput?.closest('.app-modal-input-wrap');
+const modalInputWrap = document.querySelector('[data-role="profile-modal-input-wrap"]');
+const modalError = document.querySelector('[data-role="profile-modal-error"]');
 const modalForm = modal?.querySelector('form');
 const modalCancelBtn = document.querySelector('[data-role="profile-modal-cancel"]');
 const modalCloseBtn = document.querySelector('[data-role="profile-modal-close"]');
@@ -117,50 +138,98 @@ const modalOkBtn = document.querySelector('[data-role="profile-modal-ok"]');
 
 let activeConfirm = null;
 
+function setModalError(message) {
+    if (!modalError) return;
+    if (message) {
+        modalError.textContent = message;
+        modalError.hidden = false;
+        modalInput?.classList.add('is-invalid');
+    } else {
+        modalError.textContent = '';
+        modalError.hidden = true;
+        modalInput?.classList.remove('is-invalid');
+    }
+}
+
 function closeModal() {
     if (!modal || !modal.open) return;
+    setModalError('');
     modal.close();
     activeConfirm = null;
 }
 
-function openProfileModal({ title, description, initialValue = '', onConfirm }) {
+function openProfileModal({ title, description, icon = '👤', initialValue = '', onConfirm }) {
     if (!modal) return;
+    modalCard?.setAttribute('data-variant', 'input');
+    if (modalIcon) modalIcon.textContent = icon;
     modalTitle.textContent = title;
     modalDesc.textContent = description;
+    setModalError('');
     if (modalInputWrap) modalInputWrap.hidden = false;
     modalInput.value = initialValue;
     modalOkBtn.textContent = 'שמור';
+
     activeConfirm = () => {
-        const v = (modalInput.value || '').trim();
-        if (!v) { modalInput.focus(); return false; }
-        onConfirm(v);
+        const raw = (modalInput.value || '').trim();
+        if (!raw) {
+            setModalError('חייבים להזין שם');
+            modalInput.focus();
+            return false;
+        }
+        if (raw.length > 24) {
+            setModalError('מקסימום 24 תווים');
+            modalInput.focus();
+            return false;
+        }
+        onConfirm(raw);
         return true;
     };
     modal.showModal();
-    setTimeout(() => { modalInput.focus(); modalInput.select(); }, 20);
+    // Delay focus so the modal animation doesn't steal it
+    setTimeout(() => { modalInput.focus(); modalInput.select(); }, 50);
 }
 
-function openConfirmModal({ title, description, confirmLabel = 'אישור', onConfirm }) {
+function openConfirmModal({ title, description, icon = '⚠️', variant = 'danger', confirmLabel = 'אישור', onConfirm }) {
     if (!modal) return;
+    modalCard?.setAttribute('data-variant', variant);
+    if (modalIcon) modalIcon.textContent = icon;
     modalTitle.textContent = title;
     modalDesc.textContent = description;
+    setModalError('');
     if (modalInputWrap) modalInputWrap.hidden = true;
     modalOkBtn.textContent = confirmLabel;
+
     activeConfirm = () => { onConfirm(); return true; };
     modal.showModal();
-    setTimeout(() => modalOkBtn.focus(), 20);
+    setTimeout(() => modalOkBtn.focus(), 50);
 }
 
-// Wire once on module load.
+/** Floating confirmation toast — stays for ~2.5 seconds then fades. */
+let toastTimer = null;
+function showToast(message, variant = 'default') {
+    const el = document.querySelector('[data-role="toast"]');
+    if (!el) return;
+    el.textContent = message;
+    el.setAttribute('data-variant', variant);
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        el.hidden = true;
+    }, 2800);
+}
+
+// Wire modal events once on module load.
 if (modalForm) {
     modalForm.addEventListener('submit', (e) => {
         e.preventDefault();
         if (activeConfirm && activeConfirm() !== false) closeModal();
     });
 }
+// Clear error as the user types.
+modalInput?.addEventListener('input', () => setModalError(''));
 modalCancelBtn?.addEventListener('click', closeModal);
 modalCloseBtn?.addEventListener('click', closeModal);
-// Clicking the backdrop (outside the card) closes too.
+// Clicking the backdrop (outside the card) also closes.
 modal?.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
 });
