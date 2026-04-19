@@ -41,7 +41,10 @@ export function renderQuestion({ question, index, total, answer }, options = {})
 
     // Previously-answered rendering (happens when navigating back)
     if (answer) {
-        applyAnswerReveal(card, question, answer, showExplanation);
+        applyAnswerReveal(card, question, answer, {
+            showExplanation,
+            lockClicks: showExplanation,
+        });
     }
 
     updatePrevNextButtons(card, index, total);
@@ -90,18 +93,45 @@ function updatePrevNextButtons(container, index, total) {
     if (next) next.textContent = index === total - 1 ? 'סיום ✓' : 'הבאה ←';
 }
 
-/** Apply visual feedback for a submitted answer. */
-export function applyAnswerReveal(card, question, answer, showExplanation) {
+/**
+ * Apply visual feedback for a submitted answer.
+ *
+ * `lockClicks` controls whether options become disabled after answering.
+ * In modes that show the explanation right away (practice/wrong/quick10)
+ * we lock — there's no point letting the user "change" an answer they
+ * already know is right/wrong. In exam mode we leave them open so the
+ * user can change their mind until they hit Next.
+ */
+export function applyAnswerReveal(card, question, answer, opts = {}) {
+    // Backward-compat: old callers passed `showExplanation` as a bool.
+    if (typeof opts === 'boolean') opts = { showExplanation: opts, lockClicks: opts };
+    const { showExplanation = false, lockClicks = true } = opts;
+
     const options = card.querySelectorAll('[data-role="option"]');
     const list = card.querySelector('[data-role="options"]');
-    list?.classList.add('is-locked');
+
+    // Clear any prior selection/correctness classes — needed when the user
+    // re-clicks a different option in exam mode.
+    options.forEach((opt) => {
+        opt.classList.remove('is-selected', 'is-correct', 'is-incorrect');
+    });
+
+    if (lockClicks) list?.classList.add('is-locked');
+    else list?.classList.remove('is-locked');
 
     options.forEach((opt) => {
         const idx = Number(opt.dataset.optionIndex);
-        opt.querySelector('.option-btn').disabled = true;
-        if (idx === question.correctIndex) opt.classList.add('is-correct');
-        if (idx === answer.selectedIndex && !answer.correct) opt.classList.add('is-incorrect');
+        const btn = opt.querySelector('.option-btn');
+        btn.disabled = !!lockClicks;
+
         if (idx === answer.selectedIndex) opt.classList.add('is-selected');
+
+        // Correctness is only revealed when we're also locking — otherwise
+        // revealing the right answer defeats the purpose of exam mode.
+        if (lockClicks) {
+            if (idx === question.correctIndex) opt.classList.add('is-correct');
+            if (idx === answer.selectedIndex && !answer.correct) opt.classList.add('is-incorrect');
+        }
     });
 
     if (showExplanation) {

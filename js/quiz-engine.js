@@ -70,13 +70,13 @@ export class QuizEngine extends EventTarget {
     }
 
     // ==================== Answering ====================
+    // Always accepts new submissions; callers decide whether to allow re-clicks.
+    // Modes that lock after answering (practice/wrong/quick10) enforce that
+    // at the UI layer. Exam-style modes let the user change their mind until
+    // they navigate forward.
     submit(selectedIndex) {
         const idx = this.state.currentIndex;
         const q = this.questions[idx];
-        if (this.state.answers[idx] != null) {
-            // Already answered — ignore re-submission
-            return this.state.answers[idx];
-        }
         const correct = selectedIndex === q.correctIndex;
         const answer = {
             selectedIndex,

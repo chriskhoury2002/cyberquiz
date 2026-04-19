@@ -121,11 +121,24 @@ function wireEventHandlers(engine, quiz, quizMeta, mode) {
 
 function handleAnswer(engine, quiz, mode, selectedIndex) {
     const { question, answer } = engine.current();
-    if (answer) return; // already answered
+
+    // In lock-after-answer modes (practice/wrong/quick10) the first click is
+    // final — re-clicks do nothing. In exam mode we allow the user to change
+    // their mind until they navigate forward.
+    if (answer && mode.showExplanationAfterEach) return;
+
+    // Don't re-submit the same option a second time (no-op click).
+    if (answer && answer.selectedIndex === selectedIndex) return;
+
     engine.submit(selectedIndex);
     const updatedAnswer = engine.current().answer;
     const card = document.querySelector('[data-role="question"]');
-    if (card) UI.applyAnswerReveal(card, question, updatedAnswer, mode.showExplanationAfterEach);
+    if (card) {
+        UI.applyAnswerReveal(card, question, updatedAnswer, {
+            showExplanation: mode.showExplanationAfterEach,
+            lockClicks: mode.showExplanationAfterEach,
+        });
+    }
 }
 
 function handleNext(engine) {
