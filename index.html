@@ -32,9 +32,13 @@
                 <a href="#stats">סטטיסטיקות</a>
                 <a href="#about">אודות</a>
             </nav>
-            <button type="button" class="header-reset-btn" data-role="header-reset" aria-label="איפוס התקדמות">
+            <button type="button"
+                    class="header-reset-btn"
+                    data-role="header-reset"
+                    aria-label="איפוס התקדמות"
+                    onclick="document.querySelector('[data-role=&quot;confirm-modal&quot;]')?.showModal()">
                 <span aria-hidden="true">🗑</span>
-                <span class="header-reset-label">איפוס</span>
+                <span class="header-reset-label">איפוס התקדמות</span>
             </button>
         </div>
     </header>
@@ -46,13 +50,20 @@
                 <div class="app-modal-header-text">
                     <h3 id="confirm-modal-title" class="app-modal-title">לאפס את ההתקדמות?</h3>
                 </div>
-                <button type="button" class="app-modal-close" data-role="confirm-modal-close" aria-label="סגור">×</button>
+                <button type="button"
+                        class="app-modal-close"
+                        data-role="confirm-modal-close"
+                        aria-label="סגור"
+                        onclick="this.closest('dialog').close()">×</button>
             </header>
             <p class="app-modal-desc">
                 פעולה זו תמחק את כל ההתקדמות שלך בדפדפן הזה: ציונים, היסטוריית קוויזים, שאלות שטעית בהן, ודגלים. לא ניתן לשחזר.
             </p>
             <footer class="app-modal-actions">
-                <button type="button" class="btn btn-ghost" data-role="confirm-modal-cancel">ביטול</button>
+                <button type="button"
+                        class="btn btn-ghost"
+                        data-role="confirm-modal-cancel"
+                        onclick="this.closest('dialog').close()">ביטול</button>
                 <button type="submit" class="btn btn-primary" data-role="confirm-modal-ok">כן, אפס הכל</button>
             </footer>
         </form>
