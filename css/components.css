@@ -204,6 +204,105 @@
     flex-wrap: wrap;
 }
 
+/* =============== Final Exam Slot (standalone flagship button) ===============
+   Standalone CTA placed between hero and stats. Deliberately NOT wrapped in
+   a card-like container — the button itself is the visual element, centered.
+*/
+.final-exam-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 auto var(--space-xl);
+    text-align: center;
+}
+
+.final-exam-btn {
+    position: relative;
+    padding: 1.1rem 2.5rem;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: var(--color-text-strong);
+    cursor: pointer;
+    overflow: visible;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.3s;
+    /* Layered shadow: inner drop + colored outer glows (primary + accent) */
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 0 28px 2px color-mix(in srgb, var(--color-primary) 45%, transparent),
+        0 0 60px -10px color-mix(in srgb, var(--color-accent) 45%, transparent);
+    animation: final-pulse 3.2s ease-in-out infinite;
+}
+.final-exam-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    animation-play-state: paused;
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.5),
+        0 0 45px 4px color-mix(in srgb, var(--color-primary) 65%, transparent),
+        0 0 90px -10px color-mix(in srgb, var(--color-accent) 60%, transparent);
+}
+.final-exam-btn:active { transform: translateY(0) scale(1); }
+
+/* Pulse the outer glow intensity, not the element itself — avoids layout shift. */
+@keyframes final-pulse {
+    0%, 100% {
+        box-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.4),
+            0 0 28px 2px color-mix(in srgb, var(--color-primary) 45%, transparent),
+            0 0 60px -10px color-mix(in srgb, var(--color-accent) 45%, transparent);
+    }
+    50% {
+        box-shadow:
+            0 4px 14px rgba(0, 0, 0, 0.45),
+            0 0 40px 4px color-mix(in srgb, var(--color-primary) 65%, transparent),
+            0 0 80px -8px color-mix(in srgb, var(--color-accent) 60%, transparent);
+    }
+}
+
+/* The legacy .final-exam-btn-glow span is no longer needed — we drive the glow
+   from box-shadow keyframes. Hide the span if present so we don't double up. */
+.final-exam-btn-glow { display: none; }
+
+.final-exam-btn-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+}
+.final-exam-btn-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.final-exam-btn-title {
+    font-size: clamp(1.15rem, 1.5vw + 0.8rem, 1.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+.final-exam-btn-sub {
+    font-size: 0.82rem;
+    opacity: 0.88;
+    font-weight: 400;
+}
+
+.final-exam-last-line {
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+    min-height: 1em;  /* reserve space so layout doesn't jump after JS fills it */
+}
+
+@media (max-width: 640px) {
+    .final-exam-btn { padding: 1rem 1.5rem; }
+    .final-exam-btn-sub { font-size: 0.75rem; }
+}
+
 /* =============== Quiz Grid =============== */
 .quiz-grid {
     display: grid;

@@ -4,9 +4,9 @@
  */
 
 import { QuizEngine } from './quiz-engine.js';
-import { loadIndex, loadQuiz } from './quiz-loader.js';
+import { loadIndex, loadQuiz, loadAllQuizzes } from './quiz-loader.js';
 import { applyTheme } from './theme.js';
-import { getMode, prepareQuestions } from './modes.js';
+import { getMode, prepareQuestions, composeFinalExam } from './modes.js';
 import { Storage } from './storage.js';
 import * as UI from './ui.js';
 
@@ -14,32 +14,44 @@ async function main() {
     const params = new URLSearchParams(location.search);
     const quizId = params.get('id');
     const modeId = params.get('mode') ?? 'practice';
+    const mode = getMode(modeId);
 
-    if (!quizId) return showError('לא צוין מזהה קוויז. חזור לדשבורד.');
-
-    let index, quizMeta, quiz;
+    let index, quizMeta, quiz, questions;
     try {
         index = await loadIndex();
-        quizMeta = index.quizzes.find((q) => q.id === quizId);
-        if (!quizMeta) throw new Error(`Quiz ${quizId} not in registry`);
-        quiz = await loadQuiz(quizMeta.file);
+
+        if (modeId === 'final') {
+            // Special path: compose a fresh exam from all lessons every run.
+            const allQuizzes = await loadAllQuizzes(index);
+            questions = composeFinalExam(allQuizzes);
+            quiz = {
+                quizId: 'final-exam',
+                title: 'מבחן סופי — כל הקורס',
+                color: index.themes?.signature ?? null,
+                totalQuestions: questions.length,
+                questions,
+            };
+            quizMeta = { id: 'final-exam', theme: 'signature' };
+        } else {
+            if (!quizId) return showError('לא צוין מזהה קוויז. חזור לדשבורד.');
+            quizMeta = index.quizzes.find((q) => q.id === quizId);
+            if (!quizMeta) throw new Error(`Quiz ${quizId} not in registry`);
+            quiz = await loadQuiz(quizMeta.file);
+            try {
+                questions = prepareQuestions(quiz, modeId);
+            } catch (err) {
+                if (err.message === 'NO_WRONG_QUESTIONS') {
+                    return showError('אין לך עדיין שאלות שגויות בקוויז הזה. התחל בתרגול רגיל.');
+                }
+                throw err;
+            }
+        }
     } catch (err) {
         console.error(err);
-        return showError('טעינת הקוויז נכשלה: ' + err.message);
+        return showError('טעינה נכשלה: ' + err.message);
     }
 
     applyTheme(quizMeta.theme, quiz.color);
-
-    const mode = getMode(modeId);
-    let questions;
-    try {
-        questions = prepareQuestions(quiz, modeId);
-    } catch (err) {
-        if (err.message === 'NO_WRONG_QUESTIONS') {
-            return showError('אין לך עדיין שאלות שגויות בקוויז הזה. התחל בתרגול רגיל.');
-        }
-        throw err;
-    }
 
     const engine = new QuizEngine(questions, {
         mode: modeId,
@@ -72,7 +84,12 @@ function renderCurrent(engine, quiz, mode) {
     const isFlagged = Storage.getFlaggedIds(quiz.quizId).includes(question.id);
     UI.renderQuestion(
         { question, index, total, answer },
-        { mode: mode.id, showExplanation: !!answer && mode.showExplanationAfterEach, isFlagged },
+        {
+            mode: mode.id,
+            showExplanation: !!answer && mode.showExplanationAfterEach,
+            isFlagged,
+            hideTopicAndSource: !!mode.hideTopicAndSource,
+        },
     );
     UI.updateProgress(index, total);
 }
@@ -154,18 +171,26 @@ function handleComplete(results, quiz, engine) {
         mode: results.mode,
     });
 
-    // Update the wrong-answer pool: add questions answered wrong this session,
-    // remove ones that were answered correctly (the user has now mastered them).
-    const correctIds = [];
-    const wrongIds = [];
-    results.answers.forEach((answer, i) => {
-        const q = engine.questions[i];
-        if (!q) return;
-        if (answer?.correct) correctIds.push(q.id);
-        else wrongIds.push(q.id);
-    });
-    if (wrongIds.length > 0) Storage.addWrongIds(quiz.quizId, wrongIds);
-    if (correctIds.length > 0) Storage.removeWrongIds(quiz.quizId, correctIds);
+    if (quiz.quizId === 'final-exam') {
+        // Final exam composes fresh questions each run — there's no stable
+        // "wrong pool" to maintain. Also hide the retry-wrong button since
+        // it wouldn't be able to reproduce the same questions anyway.
+        const retryWrong = document.querySelector('[data-action="retry-wrong"]');
+        if (retryWrong) retryWrong.hidden = true;
+    } else {
+        // Update the wrong-answer pool: add questions answered wrong this
+        // session, remove ones that were answered correctly.
+        const correctIds = [];
+        const wrongIds = [];
+        results.answers.forEach((answer, i) => {
+            const q = engine.questions[i];
+            if (!q) return;
+            if (answer?.correct) correctIds.push(q.id);
+            else wrongIds.push(q.id);
+        });
+        if (wrongIds.length > 0) Storage.addWrongIds(quiz.quizId, wrongIds);
+        if (correctIds.length > 0) Storage.removeWrongIds(quiz.quizId, correctIds);
+    }
 
     document.querySelector('[data-role="progress-fill"]').style.width = '100%';
     UI.renderResults(results, { quizTitle: quiz.title });

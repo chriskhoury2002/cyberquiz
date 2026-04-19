@@ -14,6 +14,12 @@ export async function loadIndex() {
     return res.json();
 }
 
+/** Fetch every quiz in the registry. Used by the Final Exam composer. */
+export async function loadAllQuizzes(index) {
+    const idx = index ?? await loadIndex();
+    return Promise.all(idx.quizzes.map((q) => loadQuiz(q.file)));
+}
+
 /** Fetch a single quiz file and validate it. Throws if the quiz has zero valid questions. */
 export async function loadQuiz(file) {
     const res = await fetch(file, { cache: 'no-cache' });

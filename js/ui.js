@@ -7,7 +7,12 @@
 const OPTION_LETTERS = ['א', 'ב', 'ג', 'ד'];
 
 export function renderQuestion({ question, index, total, answer }, options = {}) {
-    const { mode = 'practice', showExplanation = false, isFlagged = false } = options;
+    const {
+        mode = 'practice',
+        showExplanation = false,
+        isFlagged = false,
+        hideTopicAndSource = false,
+    } = options;
 
     const stage = document.querySelector('[data-role="quiz-stage"]');
     stage.innerHTML = '';
@@ -20,7 +25,12 @@ export function renderQuestion({ question, index, total, answer }, options = {})
     const tmpl = document.getElementById('question-template');
     const card = tmpl.content.firstElementChild.cloneNode(true);
 
-    card.querySelector('[data-role="topic"]').textContent = question.topic || 'כללי';
+    // Final-exam mode hides the topic (would give away which lesson) and
+    // replaces it with a neutral counter. Per-Q difficulty is still shown —
+    // users see the difficulty bar but not the subject area.
+    card.querySelector('[data-role="topic"]').textContent = hideTopicAndSource
+        ? `שאלה ${index + 1}`
+        : (question.topic || 'כללי');
     const difficulty = card.querySelector('[data-role="difficulty"]');
     difficulty.textContent = translateDifficulty(question.difficulty);
     difficulty.dataset.difficulty = question.difficulty || '';

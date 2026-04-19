@@ -32,9 +32,33 @@ async function main() {
     }
 
     renderStats();
+    renderFinalExamCard();
     renderQuizzes();
     wireInteractions();
     wireGlobalMenuClose();
+}
+
+function renderFinalExamCard() {
+    const startBtn = document.querySelector('[data-role="start-final"]');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            const url = new URL('quiz.html', location.href);
+            url.searchParams.set('mode', 'final');
+            location.href = url.toString();
+        });
+    }
+
+    // Show last final-exam score if one exists.
+    const lastEl = document.querySelector('[data-role="final-last"]');
+    if (lastEl) {
+        const history = Storage.getHistory('final-exam');
+        if (history.length > 0) {
+            const last = history[0];
+            lastEl.textContent = `ציון אחרון: ${last.percent}% · ${history.length} ניסיונות`;
+        } else {
+            lastEl.textContent = 'טרם נוסה';
+        }
+    }
 }
 
 function renderStats() {
