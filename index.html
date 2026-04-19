@@ -42,7 +42,11 @@
                 <div class="profile-menu" data-role="profile-menu" hidden>
                     <div class="profile-menu-header">
                         <span class="profile-menu-title">הפרופיל שלך</span>
-                        <button class="profile-menu-close" data-role="profile-close" aria-label="סגור">×</button>
+                        <button type="button"
+                                class="profile-menu-close"
+                                data-role="profile-close"
+                                aria-label="סגור"
+                                onclick="event.stopPropagation(); this.closest('.profile-menu').hidden = true;">×</button>
                     </div>
                     <p class="profile-menu-note">
                         ההתקדמות שלך נשמרת רק בדפדפן הזה, תחת הפרופיל הפעיל.
