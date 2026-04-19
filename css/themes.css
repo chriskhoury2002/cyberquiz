@@ -1,30 +1,30 @@
 /* ============================================================
    Themes — CSS variable sets per palette.
-   Default (body.theme-default) is Cyberpunk.
+   Default (body.theme-default) is the site's "Signature" palette.
    Other themes applied by adding class e.g. body.theme-matrix
    or by theme.js overriding individual --color-* properties.
    ============================================================ */
 
 :root {
-    /* Default values (Cyberpunk). Overridden per theme class. */
-    --color-bg: #0a0e27;
+    /* Default palette — "Signature" (the site's signature colors). */
+    --color-bg: #333333;
     --color-surface: rgba(255, 255, 255, 0.04);
     --color-surface-strong: rgba(255, 255, 255, 0.08);
     --color-border: rgba(255, 255, 255, 0.1);
     --color-border-strong: rgba(255, 255, 255, 0.18);
 
-    --color-primary: #ff006e;
-    --color-secondary: #8338ec;
-    --color-accent: #3a86ff;
-    --color-glow-a: rgba(255, 0, 110, 0.18);
-    --color-glow-b: rgba(58, 134, 255, 0.15);
+    --color-primary: #c75bee;
+    --color-secondary: #01487f;
+    --color-accent: #a2ece4;
+    --color-glow-a: rgba(199, 91, 238, 0.22);
+    --color-glow-b: rgba(1, 72, 127, 0.25);
 
-    --color-text: #e4e6f1;
+    --color-text: #f0eef2;
     --color-text-strong: #ffffff;
-    --color-text-dim: #8b8fa7;
+    --color-text-dim: #b7b3b7;
 
-    --color-success: #00ff88;
-    --color-error: #ff3366;
+    --color-success: #a2ece4;
+    --color-error: #ff2629;
     --color-warning: #ffaa00;
 
     --radius-sm: 8px;
@@ -47,9 +47,23 @@
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* =============== Theme: Cyberpunk (default) =============== */
-.theme-cyberpunk,
+/* =============== Theme: Signature (default) =============== */
+.theme-signature,
 .theme-default {
+    --color-bg: #333333;
+    --color-primary: #c75bee;
+    --color-secondary: #01487f;
+    --color-accent: #a2ece4;
+    --color-glow-a: rgba(199, 91, 238, 0.22);
+    --color-glow-b: rgba(1, 72, 127, 0.25);
+    --color-text: #f0eef2;
+    --color-text-dim: #b7b3b7;
+    --color-error: #ff2629;
+    --color-success: #a2ece4;
+}
+
+/* =============== Theme: Cyberpunk =============== */
+.theme-cyberpunk {
     --color-bg: #0a0e27;
     --color-primary: #ff006e;
     --color-secondary: #8338ec;

@@ -24,3 +24,12 @@ npm-debug.log*
 node_modules/
 .env
 .env.local
+
+# Source presentations — kept locally for content generation, not in repo
+*.pdf
+*.pptx
+*.ppt
+/analysis/
+
+# Node helpers (if ever used)
+package-lock.json

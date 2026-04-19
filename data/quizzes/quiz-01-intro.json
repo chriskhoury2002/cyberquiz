@@ -2,9 +2,9 @@
   "quizId": "quiz-01-intro",
   "title": "מבוא לאבטחת מידע וסייבר",
   "color": {
-    "primary": "#ff006e",
-    "secondary": "#8338ec",
-    "accent": "#3a86ff"
+    "primary": "#c75bee",
+    "secondary": "#01487f",
+    "accent": "#a2ece4"
   },
   "totalQuestions": 8,
   "_note": "קוויז דמו לצורכי בדיקת התשתית. יוחלף בתוכן אמיתי ממצגת 1 של הקורס.",

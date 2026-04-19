@@ -6,13 +6,19 @@
       "title": "מבוא לאבטחת מידע וסייבר",
       "presentationNumber": 1,
       "file": "data/quizzes/quiz-01-intro.json",
-      "theme": "cyberpunk",
+      "theme": "signature",
       "difficulty": "beginner",
       "estimatedMinutes": 10,
       "questionCount": 8
     }
   ],
   "themes": {
+    "signature": {
+      "primary": "#c75bee",
+      "secondary": "#01487f",
+      "accent": "#a2ece4",
+      "bg": "#333333"
+    },
     "cyberpunk": {
       "primary": "#ff006e",
       "secondary": "#8338ec",

@@ -6,7 +6,7 @@
  */
 
 const KNOWN_THEME_CLASSES = [
-    'theme-default', 'theme-cyberpunk', 'theme-matrix',
+    'theme-default', 'theme-signature', 'theme-cyberpunk', 'theme-matrix',
     'theme-ocean', 'theme-sunset', 'theme-forest', 'theme-midnight',
 ];
 
