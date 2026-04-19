@@ -64,7 +64,12 @@
                         class="btn btn-ghost"
                         data-role="confirm-modal-cancel"
                         onclick="this.closest('dialog').close()">ביטול</button>
-                <button type="submit" class="btn btn-primary" data-role="confirm-modal-ok">כן, אפס הכל</button>
+                <button type="button"
+                        class="btn btn-primary"
+                        data-role="confirm-modal-ok"
+                        onclick="Object.keys(localStorage).filter(k=>k.startsWith('cq:')).forEach(k=>localStorage.removeItem(k));location.reload();">
+                    כן, אפס הכל
+                </button>
             </footer>
         </form>
     </dialog>
